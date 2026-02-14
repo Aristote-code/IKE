@@ -10,12 +10,14 @@ export const translations: Record<string, Record<string, string>> = {
     nav_calc: "Calculations",
     nav_models: "Price Models",
     nav_prices: "Prices",
+    nav_invoices: "Invoices",
     nav_analysis: "Analysis",
     nav_comm: "Communication",
     nav_reg: "Registers",
     nav_persons: "Persons",
     nav_study: "Study Paths",
     nav_int: "Integrations",
+    nav_admin: "Administration",
     nav_users: "Users & Roles",
     nav_roles: "Roles",
     nav_settings: "Settings",
@@ -48,7 +50,7 @@ export const translations: Record<string, Record<string, string>> = {
     dash_task_sign_desc: "Digital signature required for Bjuv.",
     dash_task_update: "System Update",
     dash_task_update_desc: "New price model logic deployed.",
-    
+
     // Student List
     sl_title: "Youth Registry",
     sl_subtitle: "Manage 432 registered students.",
@@ -107,7 +109,7 @@ export const translations: Record<string, Record<string, string>> = {
     org_col_year: "Year",
     org_col_uploaded: "Uploaded",
     org_col_status: "Status",
-    
+
     // Common
     status_active: "Active",
     status_pending: "Pending",
@@ -116,7 +118,7 @@ export const translations: Record<string, Record<string, string>> = {
     status_finalized: "Finalized",
     coming_soon: "Coming Soon",
     coming_soon_desc: "This module is currently under development.",
-    
+
     // Dates/Months
     month_dec: "December",
     month_nov: "November",
@@ -136,12 +138,14 @@ export const translations: Record<string, Record<string, string>> = {
     nav_calc: "IKE Beräkningar",
     nav_models: "Prismodeller",
     nav_prices: "Priser",
+    nav_invoices: "Fakturor",
     nav_analysis: "Analys",
     nav_comm: "Kommunikation",
     nav_reg: "Register",
     nav_persons: "Personer",
     nav_study: "Studievägar",
     nav_int: "Integrationer",
+    nav_admin: "Administration",
     nav_users: "Användare & Roller",
     nav_roles: "Roller",
     nav_settings: "Inställningar",
