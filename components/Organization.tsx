@@ -386,8 +386,8 @@ export const Organization: React.FC = () => {
   const TreeItem = ({ id, label, level = 0, hasChildren = false, icon: Icon, childrenIds = [], isLast = false, parentExpanded = true }: any) => {
     const isExpanded = expandedNodes[id];
     const isSelected = selectedNodeId === id;
-    // Indent based on level - schools get more indentation
-    const paddingLeft = level === 0 ? 16 : level === 1 ? 40 : 60;
+    // Indent based on level
+    const paddingLeft = level === 0 ? 12 : level === 1 ? 28 : 52;
 
     if (!parentExpanded) return null;
 
@@ -395,32 +395,28 @@ export const Organization: React.FC = () => {
       <div className="relative">
         <div
           className={`group relative flex items-center py-2.5 pr-3 cursor-pointer text-sm transition-all duration-150 select-none
-            ${isSelected ? 'bg-indigo-50/50 text-indigo-900 font-medium' : 'text-slate-700 hover:bg-slate-50'}
+            ${isSelected ? 'bg-amber-50/80 text-slate-900 font-medium' : 'text-slate-700 hover:bg-slate-50'}
           `}
           style={{ paddingLeft: `${paddingLeft}px` }}
           onClick={() => setSelectedNodeId(id)}
         >
           <div
-            className={`mr-3 flex items-center justify-center transition-colors
-              ${hasChildren ? 'text-slate-400 hover:text-slate-600' : ''}
+            className={`mr-2 flex items-center justify-center transition-colors
+              ${hasChildren ? 'cursor-pointer' : ''}
             `}
             onClick={(e) => hasChildren && toggleNode(id, e)}
           >
-            {Icon ? (
-              <Icon size={18} className={isSelected ? 'text-indigo-600' : 'text-slate-500'} />
-            ) : (
-              hasChildren ? (
-                <ChevronRight
-                  size={16}
-                  className={`transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''} text-slate-400`}
-                />
-              ) : (
-                <div className={`h-2 w-2 rounded-full ${isSelected ? 'bg-indigo-400' : 'bg-slate-300'}`} />
-              )
-            )}
+            {hasChildren ? (
+              <ChevronDown
+                size={16}
+                className={`transition-transform duration-200 ${!isExpanded ? '-rotate-90' : ''} text-slate-400`}
+              />
+            ) : null}
           </div>
 
-          <span className={`truncate ${level === 0 ? 'font-medium' : ''}`}>{label}</span>
+          {Icon && <Icon size={18} className={`mr-2 ${isSelected ? 'text-slate-700' : 'text-slate-500'}`} />}
+
+          <span className={`truncate ${level === 0 ? 'font-semibold' : ''}`}>{label}</span>
         </div>
 
         {hasChildren && isExpanded && (
@@ -428,12 +424,22 @@ export const Organization: React.FC = () => {
             {childrenIds.map((childId: string, index: number) => {
               const childData = MOCK_DATA[childId];
               if (!childData) return null;
+              const childIcon = childData.type === 'School Unit' ? School : childData.type === 'Municipality' ? Layers : undefined;
               return (
                 <TreeItem
                   key={childId}
                   id={childId}
                   label={childData.title}
                   level={level + 1}
+                  icon={childIcon}
+                  hasChildren={childData.type !== 'School Unit'}
+                  childrenIds={
+                    childData.type === 'Municipality'
+                      ? Object.keys(MOCK_DATA).filter(k => MOCK_DATA[k].group === childData.title && MOCK_DATA[k].type === 'School Unit')
+                      : childData.type === 'Private Provider'
+                        ? Object.keys(MOCK_DATA).filter(k => k.startsWith(childData.id) && MOCK_DATA[k].type === 'School Unit')
+                        : []
+                  }
                   isLast={index === childrenIds.length - 1}
                   parentExpanded={isExpanded}
                 />
@@ -873,25 +879,17 @@ export const Organization: React.FC = () => {
         </div>
 
         <div className="flex-1 overflow-y-auto py-2 custom-scrollbar">
-          <TreeItem id="skane" label="Region Skåne" level={0} hasChildren={true} icon={MapPin} />
-
-          {expandedNodes['skane'] && (
-            <div className="relative">
-              <div className="absolute top-0 bottom-0 w-px bg-slate-200" style={{ left: '12px' }} />
-              <TreeItem id="bjuv" label="Bjuvs kommun" level={1} hasChildren={true} childrenIds={['bjuv_katedral', 'bjuv_solang', 'bjuv_vastgota', 'bjuv_norra']} />
-              <TreeItem id="bromolla" label="Bromölla kommun" level={1} hasChildren={true} childrenIds={['bromolla_katedral', 'bromolla_solang', 'bromolla_vastgota', 'bromolla_norra', 'bromolla_soder']} />
-              <TreeItem id="eslov" label="Eslövs kommun" level={1} hasChildren={true} childrenIds={['eslov_katedral', 'eslov_solang', 'eslov_vastgota', 'eslov_norra', 'eslov_soder']} />
-              <TreeItem id="lund" label="Lunds kommun" level={1} hasChildren={true} childrenIds={['lund_katedral', 'lund_solang', 'lund_vastgota']} />
-              <TreeItem id="malmo" label="Malmö stad" level={1} hasChildren={true} childrenIds={['malmo_katedral', 'malmo_solang']} />
-              <TreeItem id="skurup" label="Skurups kommun" level={1} hasChildren={true} childrenIds={['skurup_katedral', 'skurup_solang', 'skurup_vastgota', 'skurup_norra']} />
-              <TreeItem id="staffan" label="Staffanstorps kommun" level={1} hasChildren={true} childrenIds={['staffan_katedral', 'staffan_solang', 'staffan_vastgota']} />
-              <TreeItem id="ystad" label="Ystads kommun" level={1} hasChildren={true} childrenIds={['ystad_katedral', 'ystad_solang', 'ystad_vastgota', 'ystad_norra']} />
-
-              <TreeItem id="innovita" label="Innovitaskolan" level={1} hasChildren={true} childrenIds={['inno_1', 'inno_2']} />
-              <TreeItem id="kunskap" label="Kunskapsskolan" level={1} hasChildren={true} childrenIds={['kunskap_1', 'kunskap_2']} />
-              <TreeItem id="praktiska" label="Praktiska Gymnasiet" level={1} hasChildren={true} childrenIds={['prakt_1', 'prakt_2', 'prakt_3']} isLast={true} />
-            </div>
-          )}
+          <TreeItem
+            id="skane"
+            label="Region Skåne"
+            level={0}
+            hasChildren={true}
+            icon={MapPin}
+            childrenIds={[
+              'bjuv', 'bromolla', 'eslov', 'lund', 'malmo', 'skurup', 'staffan', 'ystad',
+              'innovita', 'kunskap', 'praktiska'
+            ]}
+          />
         </div>
       </div>
 
