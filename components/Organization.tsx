@@ -386,63 +386,45 @@ export const Organization: React.FC = () => {
   const TreeItem = ({ id, label, level = 0, hasChildren = false, icon: Icon, childrenIds = [], isLast = false, parentExpanded = true }: any) => {
     const isExpanded = expandedNodes[id];
     const isSelected = selectedNodeId === id;
-    // Indent based on level
-    const paddingLeft = level * 20 + 24;
+    // Indent based on level - schools get more indentation
+    const paddingLeft = level === 0 ? 16 : level === 1 ? 40 : 60;
 
     if (!parentExpanded) return null;
 
     return (
       <div className="relative">
-        {/* Connector Line for Children (Vertical) */}
-        {level > 0 && !isLast && (
-          <div className="absolute left-[9px] top-0 bottom-0 w-px bg-slate-200" style={{ left: `${(level - 1) * 20 + 12}px` }} />
-        )}
-
         <div
-          className={`group relative flex items-center py-2 pr-3 cursor-pointer text-sm transition-all duration-150 select-none
-            ${isSelected ? 'bg-indigo-50 text-indigo-900 font-medium' : 'text-slate-600 hover:bg-slate-50'}
-            ${isSelected ? 'border-r-2 border-indigo-600' : 'border-r-2 border-transparent'}
+          className={`group relative flex items-center py-2.5 pr-3 cursor-pointer text-sm transition-all duration-150 select-none
+            ${isSelected ? 'bg-indigo-50/50 text-indigo-900 font-medium' : 'text-slate-700 hover:bg-slate-50'}
           `}
           style={{ paddingLeft: `${paddingLeft}px` }}
           onClick={() => setSelectedNodeId(id)}
         >
-          {/* Connector Line (Horizontal) */}
-          {level > 0 && (
-            <div className="absolute top-1/2 w-3 h-px bg-slate-200" style={{ left: `${(level - 1) * 20 + 12}px` }} />
-          )}
-
-          {/* Vertical line connector for this specific item if it is last */}
-          {level > 0 && isLast && (
-            <div className="absolute top-0 h-1/2 w-px bg-slate-200" style={{ left: `${(level - 1) * 20 + 12}px` }} />
-          )}
-
           <div
-            className={`mr-2 z-10 flex items-center justify-center transition-colors
-              ${hasChildren ? 'text-slate-400 hover:text-slate-600' : 'text-slate-300'}
+            className={`mr-3 flex items-center justify-center transition-colors
+              ${hasChildren ? 'text-slate-400 hover:text-slate-600' : ''}
             `}
             onClick={(e) => hasChildren && toggleNode(id, e)}
           >
             {Icon ? (
-              <Icon size={16} className={isSelected ? 'text-indigo-600' : 'text-slate-500'} />
+              <Icon size={18} className={isSelected ? 'text-indigo-600' : 'text-slate-500'} />
             ) : (
               hasChildren ? (
-                <div className={`p-0.5 rounded-md ${isExpanded ? 'bg-slate-200 text-slate-700' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'}`}>
-                  {isExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
-                </div>
+                <ChevronRight
+                  size={16}
+                  className={`transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''} text-slate-400`}
+                />
               ) : (
-                <div className={`h-1.5 w-1.5 rounded-full ${isSelected ? 'bg-indigo-600' : 'bg-slate-300'}`} />
+                <div className={`h-2 w-2 rounded-full ${isSelected ? 'bg-indigo-400' : 'bg-slate-300'}`} />
               )
             )}
           </div>
 
-          <span className="truncate">{label}</span>
+          <span className={`truncate ${level === 0 ? 'font-medium' : ''}`}>{label}</span>
         </div>
 
         {hasChildren && isExpanded && (
-          <div className="relative">
-            {/* Vertical Line for children */}
-            <div className="absolute top-0 bottom-0 w-px bg-slate-200" style={{ left: `${level * 20 + 12}px` }} />
-
+          <div>
             {childrenIds.map((childId: string, index: number) => {
               const childData = MOCK_DATA[childId];
               if (!childData) return null;
@@ -454,7 +436,6 @@ export const Organization: React.FC = () => {
                   level={level + 1}
                   isLast={index === childrenIds.length - 1}
                   parentExpanded={isExpanded}
-                // School Units don't have children in this view
                 />
               );
             })}
