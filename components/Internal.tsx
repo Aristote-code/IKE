@@ -34,8 +34,8 @@ export const Internal: React.FC = () => {
         },
         {
             title: 'Mall för elevunderlag och certifiering',
-            description: 'Standardiserad mall' för rapportering av elevdata',
-      type: 'Excel',
+            description: 'Standardiserad mall för rapportering av elevdata',
+            type: 'Excel',
             size: '650 KB',
             category: 'Mallar',
             updated: '2024-02-01',
@@ -239,8 +239,8 @@ export const Internal: React.FC = () => {
                                         key={cat}
                                         onClick={() => setActiveCategory(cat)}
                                         className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${activeCategory === cat
-                                                ? 'bg-indigo-600 text-white'
-                                                : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
+                                            ? 'bg-indigo-600 text-white'
+                                            : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
                                             }`}
                                     >
                                         {cat === 'all' ? 'Alla' : cat}
