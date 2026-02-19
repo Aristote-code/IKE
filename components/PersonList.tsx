@@ -169,10 +169,10 @@ export const PersonList: React.FC = () => {
     const handleSavePerson = () => {
         if (modalMode === 'add') {
             console.log('Adding person:', newPerson);
-            showToast('success', `${newPerson.givenName} ${newPerson.familyName} has been registered.`);
+            showToast('success', `${newPerson.givenName} ${newPerson.familyName} ${t('sl_toast_registered')}`);
         } else {
             console.log('Updating person:', newPerson);
-            showToast('success', `${newPerson.givenName} ${newPerson.familyName} has been updated.`);
+            showToast('success', `${newPerson.givenName} ${newPerson.familyName} ${t('sl_toast_updated')}`);
         }
         setIsAddModalOpen(false);
         setNewPerson({ ssn: '', givenName: '', familyName: '', email: '', municipality: '' });
@@ -275,7 +275,11 @@ export const PersonList: React.FC = () => {
                                                 <div>
                                                     <div className="font-medium text-slate-900">{person.fullName}</div>
                                                     <div className="text-xs text-slate-500 flex gap-1 mt-0.5">
-                                                        {person.types.map(t => <Badge key={t} variant="neutral" className="bg-slate-100 border-none px-1.5 py-0 text-[10px]">{t}</Badge>)}
+                                                        {person.types.map(type => (
+                                                            <Badge key={type} variant="neutral" className="bg-slate-100 border-none px-1.5 py-0 text-[10px]">
+                                                                {type === 'Student' ? t('type_student') : type === 'KAA' ? t('type_kaa') : type}
+                                                            </Badge>
+                                                        ))}
                                                     </div>
                                                 </div>
                                             </div>
@@ -324,15 +328,15 @@ export const PersonList: React.FC = () => {
             <Modal
                 isOpen={isAddModalOpen}
                 onClose={() => setIsAddModalOpen(false)}
-                title={modalMode === 'add' ? "Register New Person" : "Edit Person"}
+                title={modalMode === 'add' ? t('sl_register_new') : t('sl_edit_person')}
                 size="lg"
                 footer={
                     <>
                         <Button variant="ghost" onClick={() => setIsAddModalOpen(false)}>
-                            Cancel
+                            {t('sl_cancel')}
                         </Button>
                         <Button onClick={handleSavePerson}>
-                            {modalMode === 'add' ? "Register Person" : "Save Changes"}
+                            {modalMode === 'add' ? t('sl_register_btn') : t('sl_save_changes')}
                         </Button>
                     </>
                 }
@@ -340,53 +344,53 @@ export const PersonList: React.FC = () => {
                 <div className="space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Social Security Number</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t('sl_label_ssn')}</label>
                             <input
                                 type="text"
-                                placeholder="YYYYMMDD-XXXX"
+                                placeholder={t('sl_placeholder_ssn')}
                                 className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all hover:border-slate-400"
                                 value={newPerson.ssn}
                                 onChange={e => setNewPerson({ ...newPerson, ssn: e.target.value })}
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t('sl_label_email')}</label>
                             <input
                                 type="email"
-                                placeholder="student@example.com"
+                                placeholder={t('sl_placeholder_email')}
                                 className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                                 value={newPerson.email}
                                 onChange={e => setNewPerson({ ...newPerson, email: e.target.value })}
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Given Name</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t('sl_label_given_name')}</label>
                             <input
                                 type="text"
-                                placeholder="First Name"
+                                placeholder={t('sl_placeholder_first')}
                                 className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                                 value={newPerson.givenName}
                                 onChange={e => setNewPerson({ ...newPerson, givenName: e.target.value })}
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Family Name</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t('sl_label_family_name')}</label>
                             <input
                                 type="text"
-                                placeholder="Last Name"
+                                placeholder={t('sl_placeholder_last')}
                                 className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                                 value={newPerson.familyName}
                                 onChange={e => setNewPerson({ ...newPerson, familyName: e.target.value })}
                             />
                         </div>
                         <div className="sm:col-span-2">
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Home Municipality</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t('sl_label_muni')}</label>
                             <select
                                 className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white"
                                 value={newPerson.municipality}
                                 onChange={e => setNewPerson({ ...newPerson, municipality: e.target.value })}
                             >
-                                <option value="">Select Municipality...</option>
+                                <option value="">{t('sl_select_muni')}</option>
                                 <option value="1280">Malmö</option>
                                 <option value="1281">Lund</option>
                                 <option value="1290">Kristianstad</option>
@@ -398,7 +402,7 @@ export const PersonList: React.FC = () => {
                     <div className="bg-blue-50 p-4 rounded-lg flex gap-3 text-blue-700 text-sm">
                         <FileText size={18} className="shrink-0 mt-0.5" />
                         <p>
-                            Checking the SSN against the population register will automatically populate address details if available.
+                            {t('sl_ssn_check_info')}
                         </p>
                     </div>
                 </div>

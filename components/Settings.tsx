@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
     User, Bell, Lock, Globe, Moon, Save, Phone, Building2,
     Shield, Eye, Download, Trash2, Key, Smartphone, Mail,
-    Settings as SettingsIcon, Palette, Type, Accessibility
+    Palette, Type, Accessibility
 } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 import { useToast } from './ui/Toast';
@@ -61,28 +61,28 @@ export const Settings: React.FC = () => {
     });
 
     const handleSave = () => {
-        showToast('Inställningar sparade', 'success');
+        showToast(t('set_toast_saved'), 'success');
     };
 
     const handleExportData = () => {
-        showToast('Data exporteras...', 'info');
+        showToast(t('set_toast_export'), 'info');
     };
 
     const handleDeleteAccount = () => {
-        showToast('Kontakta systemadministratör för att radera konto', 'info');
+        showToast(t('set_toast_delete'), 'info');
     };
 
     return (
         <div className="max-w-5xl mx-auto space-y-6 animate-in fade-in duration-500">
             <PageHeader
                 title={t('nav_settings')}
-                description="Hantera dina personliga inställningar, preferenser och säkerhet."
+                description={t('set_desc')}
             >
                 <Button
                     onClick={handleSave}
                     leftIcon={<Save size={18} />}
                 >
-                    Spara alla ändringar
+                    {t('set_btn_save_all')}
                 </Button>
             </PageHeader>
 
@@ -93,13 +93,13 @@ export const Settings: React.FC = () => {
                         <User size={22} />
                     </div>
                     <div>
-                        <h2 className="text-lg font-semibold text-slate-900">Profilinformation</h2>
-                        <p className="text-sm text-slate-500">Dina personliga uppgifter och kontaktinformation</p>
+                        <h2 className="text-lg font-semibold text-slate-900">{t('set_profile_title')}</h2>
+                        <p className="text-sm text-slate-500">{t('set_profile_desc')}</p>
                     </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">Förnamn</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">{t('set_label_first')}</label>
                         <input
                             type="text"
                             value={profile.firstName}
@@ -108,7 +108,7 @@ export const Settings: React.FC = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">Efternamn</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">{t('set_label_last')}</label>
                         <input
                             type="text"
                             value={profile.lastName}
@@ -117,7 +117,7 @@ export const Settings: React.FC = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">Befattning</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">{t('set_label_title')}</label>
                         <input
                             type="text"
                             value={profile.title}
@@ -126,7 +126,7 @@ export const Settings: React.FC = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">Avdelning</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">{t('set_label_dept')}</label>
                         <select
                             value={profile.department}
                             onChange={(e) => setProfile({ ...profile, department: e.target.value })}
@@ -139,7 +139,7 @@ export const Settings: React.FC = () => {
                         </select>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">E-postadress</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">{t('set_label_email')}</label>
                         <div className="relative">
                             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                             <input
@@ -151,7 +151,7 @@ export const Settings: React.FC = () => {
                         </div>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">Telefonnummer</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">{t('set_label_phone')}</label>
                         <div className="relative">
                             <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                             <input
@@ -163,7 +163,7 @@ export const Settings: React.FC = () => {
                         </div>
                     </div>
                     <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-slate-700 mb-2">Kontor</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">{t('set_label_office')}</label>
                         <div className="relative">
                             <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                             <select
@@ -188,20 +188,20 @@ export const Settings: React.FC = () => {
                         <Bell size={22} />
                     </div>
                     <div>
-                        <h2 className="text-lg font-semibold text-slate-900">Notifieringar</h2>
-                        <p className="text-sm text-slate-500">Välj hur du vill bli meddelad om uppdateringar</p>
+                        <h2 className="text-lg font-semibold text-slate-900">{t('set_notif_title')}</h2>
+                        <p className="text-sm text-slate-500">{t('set_notif_desc')}</p>
                     </div>
                 </div>
 
                 <div className="space-y-6">
                     <div>
-                        <h3 className="text-sm font-semibold text-slate-700 mb-4">E-postnotifieringar</h3>
+                        <h3 className="text-sm font-semibold text-slate-700 mb-4">{t('set_notif_email')}</h3>
                         <div className="space-y-4">
                             {[
-                                { key: 'emailGeneral', label: 'Allmänna uppdateringar', desc: 'Meddelanden om systemändringar och viktiga händelser' },
-                                { key: 'emailInvoices', label: 'Fakturor och betalningar', desc: 'Notifieringar om nya fakturor och betalningsstatus' },
-                                { key: 'emailReports', label: 'Rapporter', desc: 'Automatiskt genererade rapporter och analyser' },
-                                { key: 'emailUpdates', label: 'Nyhetsuppdateringar', desc: 'Information om nya funktioner och förbättringar' }
+                                { key: 'emailGeneral', label: t('set_notif_general'), desc: t('set_notif_general_desc') },
+                                { key: 'emailInvoices', label: t('set_notif_invoices'), desc: t('set_notif_invoices_desc') },
+                                { key: 'emailReports', label: t('set_notif_reports'), desc: t('set_notif_reports_desc') },
+                                { key: 'emailUpdates', label: t('set_notif_updates'), desc: t('set_notif_updates_desc') }
                             ].map(({ key, label, desc }) => (
                                 <div key={key} className="flex items-center justify-between py-3 border-b border-slate-100 last:border-0">
                                     <div>
@@ -223,13 +223,13 @@ export const Settings: React.FC = () => {
                     </div>
 
                     <div className="pt-4 border-t border-slate-200">
-                        <h3 className="text-sm font-semibold text-slate-700 mb-4">Övriga notifieringar</h3>
+                        <h3 className="text-sm font-semibold text-slate-700 mb-4">{t('set_notif_other')}</h3>
                         <div className="space-y-4">
                             {[
-                                { key: 'smsAlerts', label: 'SMS-varningar', desc: 'Kritiska varningar via SMS', icon: Smartphone },
-                                { key: 'pushNotifications', label: 'Push-notifieringar', desc: 'Notifieringar i webbläsaren', icon: Bell },
-                                { key: 'weeklyReport', label: 'Veckosammanfattning', desc: 'Sammanfattning varje måndag morgon', icon: Mail },
-                                { key: 'monthlyReport', label: 'Månadsrapport', desc: 'Detaljerad rapport varje månad', icon: Mail }
+                                { key: 'smsAlerts', label: t('set_notif_sms'), desc: t('set_notif_sms_desc'), icon: Smartphone },
+                                { key: 'pushNotifications', label: t('set_notif_push'), desc: t('set_notif_push_desc'), icon: Bell },
+                                { key: 'weeklyReport', label: t('set_notif_weekly'), desc: t('set_notif_weekly_desc'), icon: Mail },
+                                { key: 'monthlyReport', label: t('set_notif_monthly'), desc: t('set_notif_monthly_desc'), icon: Mail }
                             ].map(({ key, label, desc, icon: Icon }) => (
                                 <div key={key} className="flex items-center justify-between py-3 border-b border-slate-100 last:border-0">
                                     <div className="flex items-center gap-3">
@@ -254,15 +254,15 @@ export const Settings: React.FC = () => {
                     </div>
 
                     <div className="pt-4 border-t border-slate-200">
-                        <label className="block text-sm font-medium text-slate-700 mb-2">Notifieringsfrekvens</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">{t('set_notif_freq')}</label>
                         <select
                             value={notifications.frequency}
                             onChange={(e) => setNotifications({ ...notifications, frequency: e.target.value })}
                             className="w-full md:w-auto px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
                         >
-                            <option value="immediate">Omedelbart</option>
-                            <option value="daily">Daglig sammanfattning</option>
-                            <option value="weekly">Veckovis sammanfattning</option>
+                            <option value="immediate">{t('set_freq_immediate')}</option>
+                            <option value="daily">{t('set_freq_daily')}</option>
+                            <option value="weekly">{t('set_freq_weekly')}</option>
                         </select>
                     </div>
                 </div>
@@ -275,43 +275,45 @@ export const Settings: React.FC = () => {
                         <Palette size={22} />
                     </div>
                     <div>
-                        <h2 className="text-lg font-semibold text-slate-900">Utseende & visning</h2>
-                        <p className="text-sm text-slate-500">Anpassa gränssnittet efter dina preferenser</p>
+                        <h2 className="text-lg font-semibold text-slate-900">{t('set_appear_title')}</h2>
+                        <p className="text-sm text-slate-500">{t('set_appear_desc')}</p>
                     </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-3">Tema</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-3">{t('set_theme')}</label>
                         <div className="grid grid-cols-3 gap-3">
                             {['light', 'dark', 'auto'].map((theme) => (
                                 <button
                                     key={theme}
                                     onClick={() => setAppearance({ ...appearance, theme })}
                                     className={`px-4 py-3 rounded-lg border-2 transition-all ${appearance.theme === theme
-                                            ? 'border-purple-600 bg-purple-50 text-purple-700'
-                                            : 'border-slate-200 hover:border-slate-300'
+                                        ? 'border-purple-600 bg-purple-50 text-purple-700'
+                                        : 'border-slate-200 hover:border-slate-300'
                                         }`}
                                 >
                                     <Moon size={18} className={`mx-auto mb-1 ${appearance.theme === theme ? 'text-purple-600' : 'text-slate-400'}`} />
-                                    <span className="text-xs font-medium capitalize">{theme === 'light' ? 'Ljust' : theme === 'dark' ? 'Mörkt' : 'Auto'}</span>
+                                    <span className="text-xs font-medium capitalize">
+                                        {theme === 'light' ? t('set_theme_light') : theme === 'dark' ? t('set_theme_dark') : t('set_theme_auto')}
+                                    </span>
                                 </button>
                             ))}
                         </div>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-3">Textstorlek</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-3">{t('set_fontsize')}</label>
                         <div className="grid grid-cols-3 gap-3">
                             {[
-                                { value: 'small', label: 'Liten', size: 'text-xs' },
-                                { value: 'medium', label: 'Medium', size: 'text-sm' },
-                                { value: 'large', label: 'Stor', size: 'text-base' }
+                                { value: 'small', label: t('set_font_small'), size: 'text-xs' },
+                                { value: 'medium', label: t('set_font_medium'), size: 'text-sm' },
+                                { value: 'large', label: t('set_font_large'), size: 'text-base' }
                             ].map(({ value, label, size }) => (
                                 <button
                                     key={value}
                                     onClick={() => setAppearance({ ...appearance, fontSize: value })}
                                     className={`px-4 py-3 rounded-lg border-2 transition-all ${appearance.fontSize === value
-                                            ? 'border-purple-600 bg-purple-50 text-purple-700'
-                                            : 'border-slate-200 hover:border-slate-300'
+                                        ? 'border-purple-600 bg-purple-50 text-purple-700'
+                                        : 'border-slate-200 hover:border-slate-300'
                                         }`}
                                 >
                                     <Type size={18} className={`mx-auto mb-1 ${appearance.fontSize === value ? 'text-purple-600' : 'text-slate-400'}`} />
@@ -321,23 +323,23 @@ export const Settings: React.FC = () => {
                         </div>
                     </div>
                     <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-slate-700 mb-2">Färgschema</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">{t('set_color_scheme')}</label>
                         <select
                             value={appearance.colorScheme}
                             onChange={(e) => setAppearance({ ...appearance, colorScheme: e.target.value })}
                             className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
                         >
-                            <option value="default">Standard (Indigo & Purple)</option>
-                            <option value="blue">Blå</option>
-                            <option value="green">Grön</option>
-                            <option value="red">Röd</option>
+                            <option value="default">{t('set_color_default')}</option>
+                            <option value="blue">{t('set_color_blue')}</option>
+                            <option value="green">{t('set_color_green')}</option>
+                            <option value="red">{t('set_color_red')}</option>
                         </select>
                     </div>
                     <div className="md:col-span-2">
                         <div className="flex items-center justify-between py-3">
                             <div>
-                                <p className="font-medium text-slate-900">Kompakt läge</p>
-                                <p className="text-sm text-slate-500">Minska avstånd mellan element för mer innehåll</p>
+                                <p className="font-medium text-slate-900">{t('set_compact')}</p>
+                                <p className="text-sm text-slate-500">{t('set_compact_desc')}</p>
                             </div>
                             <label className="relative inline-flex items-center cursor-pointer">
                                 <input
@@ -360,34 +362,34 @@ export const Settings: React.FC = () => {
                         <Globe size={22} />
                     </div>
                     <div>
-                        <h2 className="text-lg font-semibold text-slate-900">Språk & Region</h2>
-                        <p className="text-sm text-slate-500">Anpassa språk, tidszon och regionala inställningar</p>
+                        <h2 className="text-lg font-semibold text-slate-900">{t('set_lang_title')}</h2>
+                        <p className="text-sm text-slate-500">{t('set_lang_desc')}</p>
                     </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">Språk</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">{t('set_lang_label')}</label>
                         <select
                             value={language}
-                            onChange={(e) => setLanguage(e.target.value as 'sv' | 'en')}
+                            onChange={(e) => setLanguage(e.target.value as 'SV' | 'EN')}
                             className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                         >
-                            <option value="sv">Svenska</option>
-                            <option value="en">English</option>
+                            <option value="SV">Svenska</option>
+                            <option value="EN">English</option>
                         </select>
-                        <p className="text-xs text-slate-500 mt-2">Ändra språk för hela gränssnittet</p>
+                        <p className="text-xs text-slate-500 mt-2">{t('set_lang_help')}</p>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">Tidszon</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">{t('set_timezone')}</label>
                         <select className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
                             <option>Europe/Stockholm (CET, UTC+1)</option>
                             <option>Europe/London (GMT, UTC+0)</option>
                             <option>UTC (UTC+0)</option>
                         </select>
-                        <p className="text-xs text-slate-500 mt-2">På all tid och datumvisning</p>
+                        <p className="text-xs text-slate-500 mt-2">{t('set_timezone_help')}</p>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">Datumformat</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">{t('set_date_format')}</label>
                         <select className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
                             <option>ÅÅÅÅ-MM-DD (2024-01-15)</option>
                             <option>DD/MM/ÅÅÅÅ (15/01/2024)</option>
@@ -395,7 +397,7 @@ export const Settings: React.FC = () => {
                         </select>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">Valutaformat</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">{t('set_currency')}</label>
                         <select className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
                             <option>SEK (kr, Svenska kronor)</option>
                             <option>EUR (€, Euro)</option>
@@ -412,16 +414,16 @@ export const Settings: React.FC = () => {
                         <Accessibility size={22} />
                     </div>
                     <div>
-                        <h2 className="text-lg font-semibold text-slate-900">Tillgänglighet</h2>
-                        <p className="text-sm text-slate-500">Anpassa för bättre användarupplevelse</p>
+                        <h2 className="text-lg font-semibold text-slate-900">{t('set_access_title')}</h2>
+                        <p className="text-sm text-slate-500">{t('set_access_desc')}</p>
                     </div>
                 </div>
                 <div className="space-y-4">
                     {[
-                        { key: 'highContrast', label: 'Hög kontrast', desc: 'Öka kontrasten för bättre läsbarhet' },
-                        { key: 'reducedMotion', label: 'Reducerad rörelse', desc: 'Minimera animationer och övergångar' },
-                        { key: 'screenReader', label: 'Skärmläsarstöd', desc: 'Optimera för skärmläsare' },
-                        { key: 'keyboardNav', label: 'Tangentbordsnavigering', desc: 'Förbättrad tangentbordsnavigering' }
+                        { key: 'highContrast', label: t('set_access_contrast'), desc: t('set_access_contrast_desc') },
+                        { key: 'reducedMotion', label: t('set_access_motion'), desc: t('set_access_motion_desc') },
+                        { key: 'screenReader', label: t('set_access_reader'), desc: t('set_access_reader_desc') },
+                        { key: 'keyboardNav', label: t('set_access_keyboard'), desc: t('set_access_keyboard_desc') }
                     ].map(({ key, label, desc }) => (
                         <div key={key} className="flex items-center justify-between py-3 border-b border-slate-100 last:border-0">
                             <div>
@@ -449,16 +451,16 @@ export const Settings: React.FC = () => {
                         <Eye size={22} />
                     </div>
                     <div>
-                        <h2 className="text-lg font-semibold text-slate-900">Integritet & Data</h2>
-                        <p className="text-sm text-slate-500">Hantera din data och integritetsinställningar</p>
+                        <h2 className="text-lg font-semibold text-slate-900">{t('set_privacy_title')}</h2>
+                        <p className="text-sm text-slate-500">{t('set_privacy_desc')}</p>
                     </div>
                 </div>
                 <div className="space-y-6">
                     <div className="space-y-4">
                         {[
-                            { key: 'dataSharing', label: 'Datadelning med partners', desc: 'Dela anonymiserad data med betrodda partners' },
-                            { key: 'analytics', label: 'Användningsanalys', desc: 'Hjälp oss förbättra tjänsten genom användningsdata' },
-                            { key: 'thirdParty', label: 'Tredjepartstjänster', desc: 'Tillåt integration med externa tjänster' }
+                            { key: 'dataSharing', label: t('set_privacy_sharing'), desc: t('set_privacy_sharing_desc') },
+                            { key: 'analytics', label: t('set_privacy_analytics'), desc: t('set_privacy_analytics_desc') },
+                            { key: 'thirdParty', label: t('set_privacy_thirdparty'), desc: t('set_privacy_thirdparty_desc') }
                         ].map(({ key, label, desc }) => (
                             <div key={key} className="flex items-center justify-between py-3 border-b border-slate-100 last:border-0">
                                 <div>
@@ -479,14 +481,14 @@ export const Settings: React.FC = () => {
                     </div>
 
                     <div className="pt-4 border-t border-slate-200">
-                        <h3 className="text-sm font-semibold text-slate-700 mb-3">Datahantering</h3>
+                        <h3 className="text-sm font-semibold text-slate-700 mb-3">{t('set_data_mgmt')}</h3>
                         <div className="flex flex-wrap gap-3">
                             <Button
                                 variant="outline"
                                 leftIcon={<Download size={18} />}
                                 onClick={handleExportData}
                             >
-                                Exportera mina data
+                                {t('set_btn_export')}
                             </Button>
                             <Button
                                 variant="outline"
@@ -494,11 +496,11 @@ export const Settings: React.FC = () => {
                                 onClick={handleDeleteAccount}
                                 className="text-red-600 border-red-200 hover:bg-red-50"
                             >
-                                Radera mitt konto
+                                {t('set_btn_delete')}
                             </Button>
                         </div>
                         <p className="text-xs text-slate-500 mt-3">
-                            Data exporteras i JSON-format. Kontoradering kräver godkännande från systemadministratör.
+                            {t('set_data_help')}
                         </p>
                     </div>
                 </div>
@@ -511,32 +513,32 @@ export const Settings: React.FC = () => {
                         <Shield size={22} />
                     </div>
                     <div>
-                        <h2 className="text-lg font-semibold text-slate-900">Säkerhet</h2>
-                        <p className="text-sm text-slate-500">Skydda ditt konto och din information</p>
+                        <h2 className="text-lg font-semibold text-slate-900">{t('set_security_title')}</h2>
+                        <p className="text-sm text-slate-500">{t('set_security_desc')}</p>
                     </div>
                 </div>
                 <div className="space-y-6">
                     <div>
-                        <h3 className="text-sm font-semibold text-slate-700 mb-4">Lösenord</h3>
+                        <h3 className="text-sm font-semibold text-slate-700 mb-4">{t('set_password')}</h3>
                         <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <p className="font-medium text-slate-900">Byt lösenord</p>
-                                    <p className="text-sm text-slate-500">Senast ändrat 15 december 2025</p>
+                                    <p className="font-medium text-slate-900">{t('set_change_pwd')}</p>
+                                    <p className="text-sm text-slate-500">{t('set_pwd_last_changed')}</p>
                                 </div>
                                 <Button variant="outline" leftIcon={<Key size={18} />}>
-                                    Ändra lösenord
+                                    {t('set_btn_change_pwd')}
                                 </Button>
                             </div>
                         </div>
                     </div>
 
                     <div className="pt-4 border-t border-slate-200">
-                        <h3 className="text-sm font-semibold text-slate-700 mb-4">Tvåfaktorsautentisering</h3>
+                        <h3 className="text-sm font-semibold text-slate-700 mb-4">{t('set_2fa')}</h3>
                         <div className="flex items-center justify-between py-3">
                             <div>
-                                <p className="font-medium text-slate-900">2FA via SMS eller autentiseringsapp</p>
-                                <p className="text-sm text-slate-500">Extra säkerhetslager för inloggning</p>
+                                <p className="font-medium text-slate-900">{t('set_2fa_label')}</p>
+                                <p className="text-sm text-slate-500">{t('set_2fa_desc')}</p>
                             </div>
                             <label className="relative inline-flex items-center cursor-pointer">
                                 <input
@@ -551,26 +553,26 @@ export const Settings: React.FC = () => {
                     </div>
 
                     <div className="pt-4 border-t border-slate-200">
-                        <h3 className="text-sm font-semibold text-slate-700 mb-4">Sessionsinställningar</h3>
+                        <h3 className="text-sm font-semibold text-slate-700 mb-4">{t('set_session')}</h3>
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-2">Automatisk utloggning efter inaktivitet</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-2">{t('set_session_timeout')}</label>
                             <select
                                 value={security.sessionTimeout}
                                 onChange={(e) => setSecurity({ ...security, sessionTimeout: e.target.value })}
                                 className="w-full md:w-auto px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
                             >
-                                <option value="15">15 minuter</option>
-                                <option value="30">30 minuter</option>
-                                <option value="60">1 timme</option>
-                                <option value="120">2 timmar</option>
-                                <option value="never">Aldrig</option>
+                                <option value="15">15 min</option>
+                                <option value="30">30 min</option>
+                                <option value="60">1 {t('set_time_hour')}</option>
+                                <option value="120">2 {t('set_time_hours')}</option>
+                                <option value="never">{t('set_time_never')}</option>
                             </select>
-                            <p className="text-xs text-slate-500 mt-2">Rekommenderat: 30 minuter för säker användning</p>
+                            <p className="text-xs text-slate-500 mt-2">{t('set_session_timeout_desc')}</p>
                         </div>
                     </div>
 
                     <div className="pt-4 border-t border-slate-200">
-                        <h3 className="text-sm font-semibold text-slate-700 mb-3">Aktiva sessioner</h3>
+                        <h3 className="text-sm font-semibold text-slate-700 mb-3">{t('set_active_sessions')}</h3>
                         <div className="space-y-3">
                             {[
                                 { device: 'MacBook Pro', location: 'Malmö, Sverige', time: 'Aktiv nu', current: true },
@@ -583,14 +585,14 @@ export const Settings: React.FC = () => {
                                         </div>
                                         <div>
                                             <p className="text-sm font-medium text-slate-900">
-                                                {session.device} {session.current && <span className="text-green-600">(Den här enheten)</span>}
+                                                {session.device} {session.current && <span className="text-green-600">{t('set_current_device')}</span>}
                                             </p>
                                             <p className="text-xs text-slate-500">{session.location} • {session.time}</p>
                                         </div>
                                     </div>
                                     {!session.current && (
                                         <Button variant="ghost" size="sm" className="text-red-600 hover:text-red-700">
-                                            Logga ut
+                                            {t('sl_logout')}
                                         </Button>
                                     )}
                                 </div>
@@ -603,14 +605,14 @@ export const Settings: React.FC = () => {
             {/* Footer Actions */}
             <div className="flex justify-between items-center pt-6 pb-4 border-t border-slate-200">
                 <p className="text-sm text-slate-500">
-                    Alla ändringar sparas automatiskt lokalt. Klicka på "Spara alla ändringar" för att synkronisera.
+                    {t('set_footer_text')}
                 </p>
                 <Button
                     onClick={handleSave}
                     leftIcon={<Save size={18} />}
                     size="lg"
                 >
-                    Spara alla ändringar
+                    {t('set_btn_save_all')}
                 </Button>
             </div>
         </div>

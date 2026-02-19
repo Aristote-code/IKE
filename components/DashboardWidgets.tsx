@@ -21,8 +21,8 @@ export const StatsWidget: React.FC = () => {
                     <div className="mt-2 flex items-baseline gap-2">
                         <span className="text-2xl font-bold text-slate-900">{stat.value}</span>
                         <span className={`text-xs font-medium px-1.5 py-0.5 rounded ${stat.trend === 'up' ? 'bg-emerald-50 text-emerald-700' :
-                                stat.trend === 'down' ? 'bg-amber-50 text-amber-700' :
-                                    'bg-slate-100 text-slate-600'
+                            stat.trend === 'down' ? 'bg-amber-50 text-amber-700' :
+                                'bg-slate-100 text-slate-600'
                             }`}>
                             {stat.change}
                         </span>
@@ -37,9 +37,9 @@ export const TaskWidget: React.FC = () => {
     const { t } = useLanguage();
 
     const tasks: Task[] = [
-        { id: 1, title: 'Preliminary Budget 2025', description: 'Review and approve budget proposal.', type: 'action', priority: 'high', date: 'Today' },
-        { id: 2, title: 'Missing Student Data', description: '3 students from Lund missing SSN.', type: 'warning', priority: 'medium', date: 'Yesterday' },
-        { id: 3, title: 'New Price Model', description: 'Updated pricing for IB program.', type: 'info', priority: 'low', date: '2 days ago' },
+        { id: 1, title: t('dash_task_budget'), description: t('dash_task_budget_desc'), type: 'action', priority: 'high', date: t('today') },
+        { id: 2, title: t('dash_task_data'), description: t('dash_task_data_desc'), type: 'warning', priority: 'medium', date: t('yesterday') },
+        { id: 3, title: t('dash_task_update'), description: t('dash_task_update_desc'), type: 'info', priority: 'low', date: `2 ${t('days_ago')}` },
     ];
 
     const getIcon = (type: Task['type']) => {
@@ -63,7 +63,7 @@ export const TaskWidget: React.FC = () => {
                 {tasks.map((task) => (
                     <div key={task.id} className="p-4 hover:bg-slate-50 transition-colors flex gap-4 group cursor-pointer">
                         <div className={`mt-0.5 w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${task.type === 'action' ? 'bg-blue-50' :
-                                task.type === 'warning' ? 'bg-amber-50' : 'bg-slate-100'
+                            task.type === 'warning' ? 'bg-amber-50' : 'bg-slate-100'
                             }`}>
                             {getIcon(task.type)}
                         </div>
@@ -83,10 +83,11 @@ export const TaskWidget: React.FC = () => {
 };
 
 export const ActivityWidget: React.FC = () => {
+    const { t } = useLanguage();
     return (
         <div className="bg-white rounded-lg border border-slate-200 shadow-sm h-full flex flex-col">
             <div className="p-5 border-b border-slate-100">
-                <h3 className="font-semibold text-slate-900">Recent Activity</h3>
+                <h3 className="font-semibold text-slate-900">{t('activity_title')}</h3>
             </div>
             <div className="p-5 space-y-6">
                 {[1, 2, 3].map((_, i) => (
@@ -94,9 +95,9 @@ export const ActivityWidget: React.FC = () => {
                         <div className="mt-1 w-2 h-2 rounded-full bg-blue-400 shrink-0" />
                         <div>
                             <p className="text-sm text-slate-800">
-                                <span className="font-medium">Maria Larsson</span> added a new placement for <span className="font-medium">Anders Olsson</span>.
+                                <span className="font-medium">Maria Larsson</span> {t('activity_added_placement')} <span className="font-medium">Anders Olsson</span>.
                             </p>
-                            <p className="text-xs text-slate-400 mt-1">2 hours ago</p>
+                            <p className="text-xs text-slate-400 mt-1">2 {t('activity_hours_ago')}</p>
                         </div>
                     </div>
                 ))}

@@ -62,7 +62,7 @@ export const Communication: React.FC = () => {
 
     const handleSendMessage = (e: React.FormEvent) => {
         e.preventDefault();
-        showToast('Meddelande skickat', 'success');
+        showToast(t('comm_toast_sent'), 'success');
         setIsComposeOpen(false);
     };
 
@@ -85,7 +85,7 @@ export const Communication: React.FC = () => {
                         className="w-full flex items-center justify-center gap-2 bg-indigo-600 text-white px-4 py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors shadow-sm"
                     >
                         <Plus size={20} />
-                        Nytt meddelande
+                        {t('comm_btn_new')}
                     </button>
                 </div>
 
@@ -96,7 +96,7 @@ export const Communication: React.FC = () => {
                             }`}
                     >
                         <InboxIcon size={18} />
-                        Inkorg
+                        {t('comm_folder_inbox')}
                         <span className="ml-auto bg-indigo-100 text-indigo-600 py-0.5 px-2 rounded-full text-xs">2</span>
                     </button>
                     <button
@@ -105,7 +105,7 @@ export const Communication: React.FC = () => {
                             }`}
                     >
                         <Send size={18} />
-                        Skickat
+                        {t('comm_folder_sent')}
                     </button>
                     <button
                         onClick={() => setActiveFolder('archived')}
@@ -113,11 +113,11 @@ export const Communication: React.FC = () => {
                             }`}
                     >
                         <Archive size={18} />
-                        Arkiverat
+                        {t('comm_folder_archived')}
                     </button>
                     <button className="w-full flex items-center gap-3 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
                         <Trash2 size={18} />
-                        Papperskorg
+                        {t('comm_folder_trash')}
                     </button>
                 </nav>
             </div>
@@ -129,7 +129,7 @@ export const Communication: React.FC = () => {
                     <div className="relative">
                         <input
                             type="text"
-                            placeholder="Sök meddelanden..."
+                            placeholder={t('comm_search')}
                             className="pl-9 pr-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-64"
                         />
                         <Search className="absolute left-3 top-2.5 text-slate-400" size={16} />
@@ -173,12 +173,12 @@ export const Communication: React.FC = () => {
             <Modal
                 isOpen={isComposeOpen}
                 onClose={() => setIsComposeOpen(false)}
-                title="Nytt meddelande"
+                title={t('comm_modal_title')}
                 size="lg"
             >
                 <form onSubmit={handleSendMessage} className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Till</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">{t('comm_label_to')}</label>
                         <input
                             type="text"
                             className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
@@ -186,7 +186,7 @@ export const Communication: React.FC = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Ämne</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">{t('comm_label_subject')}</label>
                         <input
                             type="text"
                             className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
@@ -194,11 +194,11 @@ export const Communication: React.FC = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Meddelande</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">{t('comm_label_message')}</label>
                         <textarea
                             rows={8}
                             className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none"
-                            placeholder="Skriv ditt meddelande här..."
+                            placeholder={t('comm_msg_placeholder')}
                         />
                     </div>
                     <div className="flex justify-end gap-3 pt-4 border-t border-slate-100">
@@ -207,14 +207,14 @@ export const Communication: React.FC = () => {
                             onClick={() => setIsComposeOpen(false)}
                             className="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50"
                         >
-                            Avbryt
+                            {t('comm_btn_cancel')}
                         </button>
                         <button
                             type="submit"
                             className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 flex items-center gap-2"
                         >
                             <Send size={16} />
-                            Skicka
+                            {t('comm_btn_send')}
                         </button>
                     </div>
                 </form>

@@ -33,7 +33,7 @@ export const Administration: React.FC = () => {
 
     const handleAddUser = (e: React.FormEvent) => {
         e.preventDefault();
-        showToast('Användare skapad', 'success');
+        showToast(t('admin_toast_created'), 'success');
         setIsAddUserModalOpen(false);
     };
 
@@ -42,14 +42,14 @@ export const Administration: React.FC = () => {
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-slate-900 tracking-tight">{t('nav_admin')}</h1>
-                    <p className="text-slate-500">Hantera användare, behörigheter och systeminställningar.</p>
+                    <p className="text-slate-500">{t('admin_desc')}</p>
                 </div>
                 <button
                     onClick={() => setIsAddUserModalOpen(true)}
                     className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 shadow-sm transition-colors"
                 >
                     <Plus size={16} />
-                    Lägg till användare
+                    {t('admin_btn_add_user')}
                 </button>
             </div>
 
@@ -64,7 +64,7 @@ export const Administration: React.FC = () => {
                             }`}
                     >
                         <Users size={16} />
-                        Användare
+                        {t('admin_tab_users')}
                     </button>
                     <button
                         onClick={() => setActiveTab('roles')}
@@ -74,7 +74,7 @@ export const Administration: React.FC = () => {
                             }`}
                     >
                         <Shield size={16} />
-                        Behörigheter
+                        {t('admin_tab_roles')}
                     </button>
                     <button
                         onClick={() => setActiveTab('logs')}
@@ -84,7 +84,7 @@ export const Administration: React.FC = () => {
                             }`}
                     >
                         <Activity size={16} />
-                        Aktivitetslogg
+                        {t('admin_tab_logs')}
                     </button>
                 </nav>
             </div>
@@ -94,7 +94,7 @@ export const Administration: React.FC = () => {
                 {activeTab === 'users' && (
                     <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
                         <div className="p-4 border-b border-slate-200 bg-slate-50/50 flex justify-between items-center">
-                            <h3 className="font-semibold text-slate-900">Registrerade användare</h3>
+                            <h3 className="font-semibold text-slate-900">{t('admin_users_title')}</h3>
                             <div className="relative">
                                 <input
                                     type="text"
@@ -107,11 +107,11 @@ export const Administration: React.FC = () => {
                         <table className="w-full text-sm text-left">
                             <thead className="bg-slate-50 text-slate-500 font-medium">
                                 <tr>
-                                    <th className="px-6 py-3">Namn</th>
-                                    <th className="px-6 py-3">Roll</th>
-                                    <th className="px-6 py-3">Status</th>
-                                    <th className="px-6 py-3">Senast inloggad</th>
-                                    <th className="px-6 py-3 text-right">Åtgärd</th>
+                                    <th className="px-6 py-3">{t('admin_col_name')}</th>
+                                    <th className="px-6 py-3">{t('admin_col_role')}</th>
+                                    <th className="px-6 py-3">{t('admin_col_status')}</th>
+                                    <th className="px-6 py-3">{t('admin_col_last_login')}</th>
+                                    <th className="px-6 py-3 text-right">{t('admin_col_action')}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-100">
@@ -161,7 +161,7 @@ export const Administration: React.FC = () => {
                                         <Shield size={24} />
                                     </div>
                                     <span className="text-sm font-medium text-slate-500">
-                                        {role.users} användare
+                                        {role.users} {t('admin_role_users')}
                                     </span>
                                 </div>
                                 <h3 className="text-lg font-semibold text-slate-900 mb-2">{role.name}</h3>
@@ -177,7 +177,7 @@ export const Administration: React.FC = () => {
                 {activeTab === 'logs' && (
                     <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
                         <div className="p-4 border-b border-slate-200 bg-slate-50/50">
-                            <h3 className="font-semibold text-slate-900">Senaste aktiviteter</h3>
+                            <h3 className="font-semibold text-slate-900">{t('admin_logs_title')}</h3>
                         </div>
                         <div className="divide-y divide-slate-100">
                             {logs.map((log) => (
@@ -214,19 +214,19 @@ export const Administration: React.FC = () => {
             <Modal
                 isOpen={isAddUserModalOpen}
                 onClose={() => setIsAddUserModalOpen(false)}
-                title="Lägg till ny användare"
+                title={t('admin_modal_title')}
             >
                 <form onSubmit={handleAddUser} className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Förnamn</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t('admin_label_first')}</label>
                             <input
                                 type="text"
                                 className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Efternamn</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t('admin_label_last')}</label>
                             <input
                                 type="text"
                                 className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
@@ -234,14 +234,14 @@ export const Administration: React.FC = () => {
                         </div>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">E-postadress</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">{t('admin_label_email')}</label>
                         <input
                             type="email"
                             className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Roll</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">{t('admin_label_role')}</label>
                         <select className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                             <option value="admin">Administratör</option>
                             <option value="manager">Handläggare</option>
@@ -255,13 +255,13 @@ export const Administration: React.FC = () => {
                             onClick={() => setIsAddUserModalOpen(false)}
                             className="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50"
                         >
-                            Avbryt
+                            {t('sl_cancel')}
                         </button>
                         <button
                             type="submit"
                             className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700"
                         >
-                            Skapa användare
+                            {t('admin_btn_create')}
                         </button>
                     </div>
                 </form>

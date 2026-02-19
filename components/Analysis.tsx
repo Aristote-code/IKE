@@ -60,7 +60,7 @@ export const Analysis: React.FC = () => {
         <div className="space-y-6 animate-in fade-in duration-500">
             <PageHeader
                 title={t('nav_analysis')}
-                description="Analys och uppföljning av elevantal, kostnader och kvalitet inom gymnasial utbildning i Region Skåne."
+                description={t('ana_desc')}
             >
                 <div className="flex gap-2">
                     <div className="relative">
@@ -76,10 +76,10 @@ export const Analysis: React.FC = () => {
                         <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 h-4 w-4 pointer-events-none" />
                     </div>
                     <Button variant="outline" leftIcon={<Filter size={16} />}>
-                        Filtrera
+                        {t('ana_filter')}
                     </Button>
                     <Button leftIcon={<Download size={16} />}>
-                        Exportera rapport
+                        {t('ana_export')}
                     </Button>
                 </div>
             </PageHeader>
@@ -89,7 +89,7 @@ export const Analysis: React.FC = () => {
                 <Card>
                     <div className="flex items-start justify-between">
                         <div>
-                            <p className="text-sm font-medium text-slate-500">Totalt antal elever</p>
+                            <p className="text-sm font-medium text-slate-500">{t('ana_total_students')}</p>
                             <h3 className="text-3xl font-bold text-slate-900 mt-1">{totalStudents.toLocaleString()}</h3>
                             <span className="text-sm text-emerald-600 font-medium flex items-center mt-1">
                                 <TrendingUp size={16} className="mr-1" /> +1.5% vs föregående termin
@@ -104,7 +104,7 @@ export const Analysis: React.FC = () => {
                 <Card>
                     <div className="flex items-start justify-between">
                         <div>
-                            <p className="text-sm font-medium text-slate-500">Genomströmning</p>
+                            <p className="text-sm font-medium text-slate-500">{t('ana_completion')}</p>
                             <h3 className="text-3xl font-bold text-slate-900 mt-1">{avgCompletionRate}%</h3>
                             <span className="text-sm text-emerald-600 font-medium flex items-center mt-1">
                                 <TrendingUp size={16} className="mr-1" /> +2.3% vs föregående år
@@ -119,7 +119,7 @@ export const Analysis: React.FC = () => {
                 <Card>
                     <div className="flex items-start justify-between">
                         <div>
-                            <p className="text-sm font-medium text-slate-500">Genomsnittskostnad/elev</p>
+                            <p className="text-sm font-medium text-slate-500">{t('ana_cost_per_student')}</p>
                             <h3 className="text-3xl font-bold text-slate-900 mt-1">{avgCostPerStudent.toLocaleString()} kr</h3>
                             <span className="text-sm text-rose-600 font-medium flex items-center mt-1">
                                 <TrendingUp size={16} className="mr-1" /> +3.2% ökning
@@ -134,7 +134,7 @@ export const Analysis: React.FC = () => {
                 <Card>
                     <div className="flex items-start justify-between">
                         <div>
-                            <p className="text-sm font-medium text-slate-500">Nya inskrivningar</p>
+                            <p className="text-sm font-medium text-slate-500">{t('ana_new_enrollments')}</p>
                             <h3 className="text-3xl font-bold text-slate-900 mt-1">{newStudentsThisMonth}</h3>
                             <span className="text-sm text-slate-500 font-medium flex items-center mt-1">
                                 <BookOpen size={16} className="mr-1" /> Denna månad
@@ -150,7 +150,7 @@ export const Analysis: React.FC = () => {
             {/* Charts Row 1 - Enrollment Trend & Program Distribution */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <Card>
-                    <h3 className="text-base font-semibold text-slate-900 mb-4">Elevutveckling över tid</h3>
+                    <h3 className="text-base font-semibold text-slate-900 mb-4">{t('ana_chart_enrollment')}</h3>
                     <div className="h-72">
                         <ResponsiveContainer width="100%" height="100%">
                             <LineChart data={enrollmentTrend} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
@@ -177,7 +177,7 @@ export const Analysis: React.FC = () => {
                                 <Line
                                     type="monotone"
                                     dataKey="totalStudents"
-                                    name="Totalt antal elever"
+                                    name={t('ana_total_students')}
                                     stroke="#4f46e5"
                                     strokeWidth={3}
                                     dot={{ r: 4, fill: '#4f46e5', strokeWidth: 2, stroke: '#fff' }}
@@ -186,7 +186,7 @@ export const Analysis: React.FC = () => {
                                 <Line
                                     type="monotone"
                                     dataKey="newEnrollments"
-                                    name="Nya inskrivningar"
+                                    name={t('ana_new_enrollments')}
                                     stroke="#10b981"
                                     strokeWidth={2}
                                     dot={{ r: 3, fill: '#10b981' }}
@@ -198,7 +198,7 @@ export const Analysis: React.FC = () => {
                 </Card>
 
                 <Card>
-                    <h3 className="text-base font-semibold text-slate-900 mb-4">Programfördelning</h3>
+                    <h3 className="text-base font-semibold text-slate-900 mb-4">{t('ana_chart_program')}</h3>
                     <div className="space-y-3">
                         {programDistribution.map((prog, index) => (
                             <div key={index} className="group hover:bg-slate-50 p-2 rounded-lg transition-colors">
@@ -229,7 +229,7 @@ export const Analysis: React.FC = () => {
             {/* Charts Row 2 - Cost Analysis & Municipality Performance */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <Card>
-                    <h3 className="text-base font-semibold text-slate-900 mb-4">Kostnad per elev (program)</h3>
+                    <h3 className="text-base font-semibold text-slate-900 mb-4">{t('ana_chart_cost')}</h3>
                     <div className="h-72">
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={costByProgram} margin={{ top: 5, right: 5, left: -10, bottom: 5 }}>
@@ -266,16 +266,16 @@ export const Analysis: React.FC = () => {
                 </Card>
 
                 <Card>
-                    <h3 className="text-base font-semibold text-slate-900 mb-4">Kommunprestanda (nyckeltal)</h3>
+                    <h3 className="text-base font-semibold text-slate-900 mb-4">{t('ana_chart_municipality')}</h3>
                     <div className="h-72">
                         <ResponsiveContainer width="100%" height="100%">
                             <RadarChart data={municipalityPerformance}>
                                 <PolarGrid stroke="#e2e8f0" />
                                 <PolarAngleAxis dataKey="name" tick={{ fill: '#64748b', fontSize: 12 }} />
                                 <PolarRadiusAxis angle={90} domain={[0, 100]} tick={{ fill: '#64748b', fontSize: 10 }} />
-                                <Radar name="Genomströmning %" dataKey="completion" stroke="#4f46e5" fill="#4f46e5" fillOpacity={0.3} />
-                                <Radar name="Kostnadseffektivitet" dataKey="costEfficiency" stroke="#10b981" fill="#10b981" fillOpacity={0.3} />
-                                <Radar name="Kvalitetsindex" dataKey="quality" stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.3} />
+                                <Radar name={t('ana_col_comp')} dataKey="completion" stroke="#4f46e5" fill="#4f46e5" fillOpacity={0.3} />
+                                <Radar name={t('ana_col_eff')} dataKey="costEfficiency" stroke="#10b981" fill="#10b981" fillOpacity={0.3} />
+                                <Radar name={t('ana_col_qual')} dataKey="quality" stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.3} />
                                 <Tooltip contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0', fontSize: '12px' }} />
                             </RadarChart>
                         </ResponsiveContainer>
@@ -286,18 +286,18 @@ export const Analysis: React.FC = () => {
             {/* Detailed Municipality Table */}
             <Card noPadding>
                 <div className="px-6 py-4 border-b border-slate-200 bg-slate-50/50">
-                    <h3 className="font-semibold text-slate-900">Kommunvis prestandajämförelse</h3>
+                    <h3 className="font-semibold text-slate-900">{t('ana_table_title')}</h3>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm">
                         <thead className="bg-slate-50 text-slate-500 font-medium border-b border-slate-200">
                             <tr>
-                                <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider">Kommun</th>
-                                <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">Genomströmning</th>
-                                <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">Nöjdhet (1-5)</th>
-                                <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">Kostnadseffektivitet</th>
-                                <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">Kvalitetsindex</th>
-                                <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">Trend</th>
+                                <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider">{t('ana_col_muni')}</th>
+                                <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">{t('ana_col_comp')}</th>
+                                <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">{t('ana_col_sat')}</th>
+                                <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">{t('ana_col_eff')}</th>
+                                <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">{t('ana_col_qual')}</th>
+                                <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">{t('ana_col_trend')}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">

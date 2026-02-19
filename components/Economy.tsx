@@ -36,83 +36,83 @@ export const Economy: React.FC = () => {
   ];
 
   const handleSaveCalculation = () => {
-    toast.success('Beräkning sparad', 'Den nya budgetberäkningen har sparats');
-  setIsCalculateModalOpen(false);
-};
+    toast.success(t('eco_toast_calc_saved'), 'Den nya budgetberäkningen har sparats');
+    setIsCalculateModalOpen(false);
+  };
 
-const totalBudget = municipalityBreakdown.reduce((sum, item) => sum + item.budget, 0);
-const totalActual = municipalityBreakdown.reduce((sum, item) => sum + item.actual, 0);
-const totalVariance = totalActual - totalBudget;
-const totalStudents = municipalityBreakdown.reduce((sum, item) => sum + item.students, 0);
+  const totalBudget = municipalityBreakdown.reduce((sum, item) => sum + item.budget, 0);
+  const totalActual = municipalityBreakdown.reduce((sum, item) => sum + item.actual, 0);
+  const totalVariance = totalActual - totalBudget;
+  const totalStudents = municipalityBreakdown.reduce((sum, item) => sum + item.students, 0);
 
-return (
-<div className ="space-y-6 animate-in fade-in duration-500">
-<PageHeader
-title = { t('eco_title') }
-description ="Budgetuppföljning och kostnadsanalys för gymnasial utbildning i Region Skåne"
->
-<div className ="flex gap-2">
-<Button
-variant ="outline"
-leftIcon = { <Filter size={ 16} /> }
->
-Filtrera
-< / Button>
-<Button
-variant ="outline"
-leftIcon = { <Download size={ 16} /> }
->
-            Exportera rapport
-< / Button>
-<Button
-onClick = {() => setIsCalculateModalOpen(true)}
-leftIcon = { <Calculator size={ 16} /> }
->
-            Ny budgetberäkning
-< / Button>
-< / div>
-< / PageHeader>
+  return (
+    <div className="space-y-6 animate-in fade-in duration-500">
+      <PageHeader
+        title={t('eco_title')}
+        description={t('eco_subtitle')}
+      >
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            leftIcon={<Filter size={16} />}
+          >
+            {t('eco_filter')}
+          </Button>
+          <Button
+            variant="outline"
+            leftIcon={<Download size={16} />}
+          >
+            {t('eco_export')}
+          </Button>
+          <Button
+            onClick={() => setIsCalculateModalOpen(true)}
+            leftIcon={<Calculator size={16} />}
+          >
+            {t('eco_new_calc')}
+          </Button>
+        </div>
+      </PageHeader>
 
-{/* KPI Cards */ }
-<div className ="grid grid-cols-1 md:grid-cols-4 gap-6">
-<Card className ="relative overflow-hidden">
-<div className ="flex justify-between items-start">
-<div>
-<p className ="text-sm font-medium text-slate-500">Totalbudget {selectedPeriod}</p>
-<h3 className ="text-2xl font-bold text-slate-900 mt-1">{(totalBudget / 1000000).toFixed(1)}M kr</h3>
-<p className ="text-xs text-slate-500 mt-1">{totalStudents.toLocaleString()} elever</p>
-< / div>
-<div className ="p-2 bg-indigo-50 rounded-lg text-indigo-600">
-<PieChartIcon size = { 20} />
-< / div>
-< / div>
-< / Card>
+      {/* KPI Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <Card className="relative overflow-hidden">
+          <div className="flex justify-between items-start">
+            <div>
+              <p className="text-sm font-medium text-slate-500">{t('eco_total_budget')} {selectedPeriod}</p>
+              <h3 className="text-2xl font-bold text-slate-900 mt-1">{(totalBudget / 1000000).toFixed(1)}M kr</h3>
+              <p className="text-xs text-slate-500 mt-1">{totalStudents.toLocaleString()} {t('org_table_students').toLowerCase()}</p>
+            </div>
+            <div className="p-2 bg-indigo-50 rounded-lg text-indigo-600">
+              <PieChartIcon size={20} />
+            </div>
+          </div>
+        </Card>
 
-<Card className ="relative overflow-hidden">
-<div className ="flex justify-between items-start">
-<div>
-<p className ="text-sm font-medium text-slate-500">Utfall hittills</p>
-<h3 className ="text-2xl font-bold text-slate-900 mt-1">{(totalActual / 1000000).toFixed(1)}M kr</h3>
-<p className ="text-xs text-slate-500 mt-1">t.o.m. december 2024</p>
-< / div>
-<div className ="p-2 bg-emerald-50 rounded-lg text-emerald-600">
-<BarChart3 size = { 20} />
-< / div>
-< / div>
-< / Card>
+        <Card className="relative overflow-hidden">
+          <div className="flex justify-between items-start">
+            <div>
+              <p className="text-sm font-medium text-slate-500">{t('eco_actual')}</p>
+              <h3 className="text-2xl font-bold text-slate-900 mt-1">{(totalActual / 1000000).toFixed(1)}M kr</h3>
+              <p className="text-xs text-slate-500 mt-1">t.o.m. december 2024</p>
+            </div>
+            <div className="p-2 bg-emerald-50 rounded-lg text-emerald-600">
+              <BarChart3 size={20} />
+            </div>
+          </div>
+        </Card>
 
-<Card className ="relative overflow-hidden">
-<div className ="flex justify-between items-start">
-<div>
-<p className ="text-sm font-medium text-slate-500">Avvikelse</p>
-<h3 className = {`text-2xl font-bold mt-1 ${totalVariance > 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
+        <Card className="relative overflow-hidden">
+          <div className="flex justify-between items-start">
+            <div>
+              <p className="text-sm font-medium text-slate-500">{t('eco_variance')}</p>
+              <h3 className={`text-2xl font-bold mt-1 ${totalVariance > 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
                 {totalVariance > 0 ? '+' : ''}{(totalVariance / 1000000).toFixed(1)}M kr
               </h3>
               <p className="text-xs text-slate-500 mt-1">
                 {((totalVariance / totalBudget) * 100).toFixed(1)}% från budget
               </p>
             </div>
-            <div className={`p - 2 rounded - lg ${ totalVariance > 0 ? 'bg-rose-50 text-rose-600' : 'bg-emerald-50 text-emerald-600' } `}>
+            <div className={`p-2 rounded-lg ${totalVariance > 0 ? 'bg-rose-50 text-rose-600' : 'bg-emerald-50 text-emerald-600'}`}>
               {totalVariance > 0 ? <TrendingUp size={20} /> : <TrendingDown size={20} />}
             </div>
           </div>
@@ -121,7 +121,7 @@ leftIcon = { <Calculator size={ 16} /> }
         <Card className="relative overflow-hidden">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-sm font-medium text-slate-500">Snitt per elev</p>
+              <p className="text-sm font-medium text-slate-500">{t('eco_cost_per_student')}</p>
               <h3 className="text-2xl font-bold text-slate-900 mt-1">
                 {Math.round(totalActual / totalStudents / 1000)}k kr
               </h3>
@@ -138,7 +138,7 @@ leftIcon = { <Calculator size={ 16} /> }
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Monthly Trend */}
         <Card>
-          <h3 className="text-base font-semibold text-slate-900 mb-4">Månatlig utveckling</h3>
+          <h3 className="text-base font-semibold text-slate-900 mb-4">{t('eco_monthly_trend')}</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={monthlyTrend} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
@@ -153,7 +153,7 @@ leftIcon = { <Calculator size={ 16} /> }
                   axisLine={false}
                   tickLine={false}
                   tick={{ fill: '#64748b', fontSize: 12 }}
-                  tickFormatter={(value) => `${ value / 1000 } k`}
+                  tickFormatter={(value) => `${value / 1000}k`}
                 />
                 <Tooltip
                   contentStyle={{
@@ -162,12 +162,12 @@ leftIcon = { <Calculator size={ 16} /> }
                     boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                     fontSize: '12px'
                   }}
-                  formatter={(value: any) => `${ (value / 1000).toFixed(0) }k kr`}
+                  formatter={(value: any) => `${(value / 1000).toFixed(0)}k kr`}
                 />
                 <Line
                   type="monotone"
                   dataKey="budgeted"
-                  name="Budgeterat"
+                  name="Budget"
                   stroke="#94a3b8"
                   strokeWidth={2}
                   strokeDasharray="5 5"
@@ -188,7 +188,7 @@ leftIcon = { <Calculator size={ 16} /> }
 
         {/* Budget vs Actual by Municipality */}
         <Card>
-          <h3 className="text-base font-semibold text-slate-900 mb-4">Top 5 kommuner (utfall vs budget)</h3>
+          <h3 className="text-base font-semibold text-slate-900 mb-4">{t('eco_top_muni')}</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={municipalityBreakdown.slice(0, 5)} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
@@ -206,7 +206,7 @@ leftIcon = { <Calculator size={ 16} /> }
                   axisLine={false}
                   tickLine={false}
                   tick={{ fill: '#64748b', fontSize: 12 }}
-                  tickFormatter={(value) => `${ value / 1000000 } M`}
+                  tickFormatter={(value) => `${value / 1000000}M`}
                 />
                 <Tooltip
                   contentStyle={{
@@ -215,7 +215,7 @@ leftIcon = { <Calculator size={ 16} /> }
                     boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                     fontSize: '12px'
                   }}
-                  formatter={(value: any) => `${ (value / 1000000).toFixed(1) }M kr`}
+                  formatter={(value: any) => `${(value / 1000000).toFixed(1)}M kr`}
                 />
                 <Bar dataKey="budget" name="Budget" fill="#94a3b8" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="actual" name="Utfall" fill="#4f46e5" radius={[4, 4, 0, 0]} />
@@ -234,11 +234,11 @@ leftIcon = { <Calculator size={ 16} /> }
           <table className="w-full text-left text-sm">
             <thead className="bg-slate-50 text-slate-500 font-medium border-b border-slate-200">
               <tr>
-                <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider">Kommun/Huvudman</th>
-                <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">Antal elever</th>
+                <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider">{t('eco_table_muni')}</th>
+                <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">{t('org_label_students_count')}</th>
                 <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">Budget</th>
                 <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">Utfall</th>
-                <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">Avvikelse</th>
+                <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">{t('eco_variance')}</th>
                 <th className="px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">%</th>
               </tr>
             </thead>
@@ -253,7 +253,7 @@ leftIcon = { <Calculator size={ 16} /> }
                   <td className="px-6 py-4 text-right font-mono text-slate-900 font-medium">
                     {(item.actual / 1000000).toFixed(1)}M kr
                   </td>
-                  <td className={`px - 6 py - 4 text - right font - mono font - medium ${ item.variance > 0 ? 'text-rose-600' : 'text-emerald-600' } `}>
+                  <td className={`px-6 py-4 text-right font-mono font-medium ${item.variance > 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
                     {item.variance > 0 ? '+' : ''}{(item.variance / 1000000).toFixed(1)}M kr
                   </td>
                   <td className="px-6 py-4 text-right">
@@ -272,7 +272,7 @@ leftIcon = { <Calculator size={ 16} /> }
                 <td className="px-6 py-4 text-right font-mono text-slate-900">
                   {(totalActual / 1000000).toFixed(1)}M kr
                 </td>
-                <td className={`px - 6 py - 4 text - right font - mono ${ totalVariance > 0 ? 'text-rose-600' : 'text-emerald-600' } `}>
+                <td className={`px-6 py-4 text-right font-mono ${totalVariance > 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
                   {totalVariance > 0 ? '+' : ''}{(totalVariance / 1000000).toFixed(1)}M kr
                 </td>
                 <td className="px-6 py-4 text-right text-slate-900">
@@ -288,24 +288,24 @@ leftIcon = { <Calculator size={ 16} /> }
       <Modal
         isOpen={isCalculateModalOpen}
         onClose={() => setIsCalculateModalOpen(false)}
-        title="Ny budgetberäkning"
+        title={t('eco_calc_modal_title')}
         footer={
           <div className="flex justify-end gap-3">
-            <Button variant="ghost" onClick={() => setIsCalculateModalOpen(false)}>Avbryt</Button>
-            <Button onClick={handleSaveCalculation}>Spara beräkning</Button>
+            <Button variant="ghost" onClick={() => setIsCalculateModalOpen(false)}>{t('sl_cancel')}</Button>
+            <Button onClick={handleSaveCalculation}>{t('eco_save_calc')}</Button>
           </div>
         }
       >
         <div className="space-y-4 py-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Läsår</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1">{t('eco_label_year')}</label>
             <select className="w-full border-slate-300 rounded-md shadow-sm text-sm p-2 border focus:ring-indigo-500 focus:border-indigo-500 bg-white">
               <option>2024-2025</option>
               <option>2025-2026</option>
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Prognosticerat antal elever</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1">{t('eco_label_forecast_students')}</label>
             <input
               type="number"
               className="w-full border-slate-300 rounded-md shadow-sm text-sm p-2 border focus:ring-indigo-500 focus:border-indigo-500 bg-white"
@@ -313,7 +313,7 @@ leftIcon = { <Calculator size={ 16} /> }
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Snittbelopp per elev (kr)</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1">{t('eco_label_avg_cost')}</label>
             <input
               type="number"
               className="w-full border-slate-300 rounded-md shadow-sm text-sm p-2 border focus:ring-indigo-500 focus:border-indigo-500 bg-white"
@@ -321,7 +321,7 @@ leftIcon = { <Calculator size={ 16} /> }
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Kommentar</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1">{t('eco_label_comment')}</label>
             <textarea
               className="w-full border-slate-300 rounded-md shadow-sm text-sm p-2 border focus:ring-indigo-500 focus:border-indigo-500 bg-white"
               rows={3}

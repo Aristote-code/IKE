@@ -16,11 +16,11 @@ export const PersonDetail: React.FC<Props> = ({ person, onEdit }) => {
     const [activeTab, setActiveTab] = useState('overview');
 
     const tabs = [
-        { id: 'overview', label: 'Overview' },
-        { id: 'placements', label: 'Placements' },
-        { id: 'economy', label: 'Economy' },
-        { id: 'history', label: 'History' },
-        { id: 'kaa', label: 'KAA Actions' },
+        { id: 'overview', label: t('pd_tab_overview') },
+        { id: 'placements', label: t('pd_tab_placements') },
+        { id: 'economy', label: t('pd_tab_economy') },
+        { id: 'history', label: t('pd_tab_history') },
+        { id: 'kaa', label: t('pd_tab_kaa') },
     ];
 
     const currentPlacement = person.placements.find(p => p.status === 'Current');
@@ -46,7 +46,7 @@ export const PersonDetail: React.FC<Props> = ({ person, onEdit }) => {
                         onClick={onEdit}
                         leftIcon={<Edit2 size={14} />}
                     >
-                        Redigera
+                        {t('pd_edit')}
                     </Button>
                 </div>
 
@@ -59,11 +59,13 @@ export const PersonDetail: React.FC<Props> = ({ person, onEdit }) => {
                             <h1 className="text-xl font-bold text-slate-900">{person.fullName}</h1>
                             <div className="flex flex-wrap gap-2 mt-1">
                                 <Badge variant={getStatusVariant(person.status)}>
-                                    {person.status}
+                                    {person.status === 'Active' ? t('status_active') :
+                                        person.status === 'Pending' ? t('status_pending') :
+                                            person.status === 'Inactive' ? t('status_inactive') : person.status}
                                 </Badge>
                                 {person.types.map(type => (
                                     <Badge key={type} variant="info">
-                                        {type}
+                                        {type === 'Student' ? t('type_student') : type === 'KAA' ? t('type_kaa') : type}
                                     </Badge>
                                 ))}
                             </div>
@@ -81,11 +83,11 @@ export const PersonDetail: React.FC<Props> = ({ person, onEdit }) => {
                         </div>
                         <div className="flex items-center gap-2 text-slate-600">
                             <Mail size={16} className="text-slate-400" />
-                            <span className="truncate">{person.email || 'No email registered'}</span>
+                            <span className="truncate">{person.email || t('pd_no_email')}</span>
                         </div>
                         <div className="flex items-center gap-2 text-slate-600">
                             <Phone size={16} className="text-slate-400" />
-                            <span>{person.phone || 'No phone registered'}</span>
+                            <span>{person.phone || t('pd_no_phone')}</span>
                         </div>
                     </div>
                 </div>
@@ -120,35 +122,35 @@ export const PersonDetail: React.FC<Props> = ({ person, onEdit }) => {
                             <div className="p-4 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between">
                                 <h3 className="font-semibold text-slate-900 flex items-center gap-2 text-sm">
                                     <School size={16} className="text-slate-500" />
-                                    Current Placement
+                                    {t('pd_curr_placement')}
                                 </h3>
-                                <Badge variant="success">Active</Badge>
+                                <Badge variant="success">{t('status_active')}</Badge>
                             </div>
 
                             {currentPlacement ? (
                                 <div className="p-5 grid grid-cols-1 gap-4">
                                     <div>
-                                        <label className="text-xs font-medium text-slate-500 uppercase tracking-wider">School Unit</label>
+                                        <label className="text-xs font-medium text-slate-500 uppercase tracking-wider">{t('pd_label_unit')}</label>
                                         <div className="mt-1 text-sm font-medium text-slate-900">{currentPlacement.schoolUnitName}</div>
-                                        <div className="text-xs text-slate-500">Unit ID: {currentPlacement.schoolUnitId}</div>
+                                        <div className="text-xs text-slate-500">{t('pd_label_id')}: {currentPlacement.schoolUnitId}</div>
                                     </div>
                                     <div>
-                                        <label className="text-xs font-medium text-slate-500 uppercase tracking-wider">Program</label>
+                                        <label className="text-xs font-medium text-slate-500 uppercase tracking-wider">{t('pd_label_prog')}</label>
                                         <div className="mt-1 text-sm font-medium text-slate-900">{currentPlacement.programName}</div>
-                                        <div className="text-xs text-slate-500">Code: {currentPlacement.programCode}</div>
+                                        <div className="text-xs text-slate-500">{t('pd_label_code')}: {currentPlacement.programCode}</div>
                                     </div>
                                     <div>
-                                        <label className="text-xs font-medium text-slate-500 uppercase tracking-wider">Period</label>
+                                        <label className="text-xs font-medium text-slate-500 uppercase tracking-wider">{t('pd_label_period')}</label>
                                         <div className="mt-1 flex items-center gap-2 text-slate-900 text-sm">
                                             <Calendar size={14} className="text-slate-400" />
-                                            {currentPlacement.startDate} — Present
+                                            {currentPlacement.startDate} — {t('pd_present')}
                                         </div>
                                     </div>
                                 </div>
                             ) : (
                                 <div className="p-8 text-center text-slate-500">
                                     <AlertCircle size={32} className="mx-auto mb-2 opacity-50" />
-                                    <p className="text-sm">No active placement found.</p>
+                                    <p className="text-sm">{t('pd_no_active_placement')}</p>
                                 </div>
                             )}
                         </Card>
@@ -157,7 +159,7 @@ export const PersonDetail: React.FC<Props> = ({ person, onEdit }) => {
                         <Card>
                             <h3 className="font-semibold text-slate-900 mb-4 flex items-center gap-2 text-sm">
                                 <Clock size={16} className="text-slate-500" />
-                                Recent Activity
+                                {t('pd_recent_activity')}
                             </h3>
                             <div className="space-y-4">
                                 {[1, 2, 3].map((_, i) => (
@@ -165,8 +167,8 @@ export const PersonDetail: React.FC<Props> = ({ person, onEdit }) => {
                                         <div className="absolute top-2 left-[7px] bottom-0 w-px bg-slate-100 last:hidden" />
                                         <div className="w-3.5 h-3.5 rounded-full bg-indigo-100 border-2 border-white ring-1 ring-indigo-200 shrink-0 mt-1.5 z-10" />
                                         <div>
-                                            <p className="text-sm text-slate-900 font-medium">Placement Updated</p>
-                                            <p className="text-xs text-slate-500 mt-0.5">Changed program from SA to NA.</p>
+                                            <p className="text-sm text-slate-900 font-medium">{t('pd_placement_updated')}</p>
+                                            <p className="text-xs text-slate-500 mt-0.5">{t('pd_placement_desc')}</p>
                                             <p className="text-xs text-slate-400 mt-1">2024-02-1{i} • Admin User</p>
                                         </div>
                                     </div>
@@ -179,14 +181,14 @@ export const PersonDetail: React.FC<Props> = ({ person, onEdit }) => {
                 {activeTab === 'placements' && (
                     <Card className="text-center text-slate-400 py-12">
                         <School size={48} className="mx-auto mb-3 opacity-20" />
-                        <p className="text-sm">Historical placements view coming soon.</p>
+                        <p className="text-sm">{t('pd_history_view')}</p>
                     </Card>
                 )}
 
                 {activeTab === 'kaa' && (
                     <Card className="text-center text-slate-400 py-12">
                         <AlertCircle size={48} className="mx-auto mb-3 opacity-20" />
-                        <p className="text-sm">KAA Action Plan & Activity log under development.</p>
+                        <p className="text-sm">{t('pd_kaa_dev')}</p>
                     </Card>
                 )}
 
@@ -195,14 +197,14 @@ export const PersonDetail: React.FC<Props> = ({ person, onEdit }) => {
                         <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-3">
                             <span className="text-2xl">💰</span>
                         </div>
-                        <p className="text-sm">Economy details for this person.</p>
+                        <p className="text-sm">{t('pd_economy_details')}</p>
                     </Card>
                 )}
 
                 {activeTab === 'history' && (
                     <Card className="text-center text-slate-400 py-12">
                         <Clock size={48} className="mx-auto mb-3 opacity-20" />
-                        <p className="text-sm">Full history log.</p>
+                        <p className="text-sm">{t('pd_history_log')}</p>
                     </Card>
                 )}
 

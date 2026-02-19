@@ -179,10 +179,10 @@ export const Internal: React.FC = () => {
         <div className="space-y-6 animate-in fade-in duration-500">
             <PageHeader
                 title={t('nav_internal')}
-                description="Dokumentation, utbildning, support och resurser för IKE-systemet."
+                description={t('int_desc')}
             >
                 <Button variant="outline" leftIcon={<PlayCircle size={16} />}>
-                    Videoguider
+                    {t('int_btn_video')}
                 </Button>
             </PageHeader>
 
@@ -193,7 +193,7 @@ export const Internal: React.FC = () => {
                         <Newspaper size={24} />
                     </div>
                     <div className="flex-1">
-                        <h3 className="font-semibold text-slate-900 mb-2">Senaste nytt</h3>
+                        <h3 className="font-semibold text-slate-900 mb-2">{t('int_banner_title')}</h3>
                         <div className="space-y-2">
                             {news.slice(0, 2).map((item, index) => (
                                 <div key={index} className="flex items-start gap-2">
@@ -209,7 +209,7 @@ export const Internal: React.FC = () => {
                         </div>
                     </div>
                     <Button variant="ghost" size="sm" className="shrink-0">
-                        Visa alla <ChevronRight size={14} className="ml-1" />
+                        {t('int_banner_view_all')} <ChevronRight size={14} className="ml-1" />
                     </Button>
                 </div>
             </Card>
@@ -222,13 +222,13 @@ export const Internal: React.FC = () => {
                             <div className="flex items-center justify-between mb-4">
                                 <div className="flex items-center gap-2">
                                     <Book size={18} className="text-indigo-600" />
-                                    <h3 className="font-semibold text-slate-900">Dokumentarkiv</h3>
+                                    <h3 className="font-semibold text-slate-900">{t('int_docs_title')}</h3>
                                 </div>
                                 <div className="relative">
                                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 h-4 w-4" />
                                     <input
                                         type="text"
-                                        placeholder="Sök dokument..."
+                                        placeholder={t('int_search_docs')}
                                         className="pl-9 pr-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 w-64 bg-white"
                                     />
                                 </div>
@@ -243,7 +243,7 @@ export const Internal: React.FC = () => {
                                             : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
                                             }`}
                                     >
-                                        {cat === 'all' ? 'Alla' : cat}
+                                        {cat === 'all' ? t('int_cat_all') : cat}
                                     </button>
                                 ))}
                             </div>
@@ -285,7 +285,7 @@ export const Internal: React.FC = () => {
                     <Card noPadding>
                         <div className="p-4 border-b border-slate-200 bg-slate-50/50 flex items-center gap-2">
                             <HelpCircle size={18} className="text-emerald-600" />
-                            <h3 className="font-semibold text-slate-900">Vanliga frågor (FAQ)</h3>
+                            <h3 className="font-semibold text-slate-900">{t('int_faq_title')}</h3>
                         </div>
                         <div className="divide-y divide-slate-100">
                             {faqs.map((faq, index) => (
@@ -309,14 +309,14 @@ export const Internal: React.FC = () => {
                 {/* Sidebar - Support, Training & Links */}
                 <div className="space-y-6">
                     <Card>
-                        <h3 className="font-semibold text-slate-900 mb-4">Support & Kontakt</h3>
+                        <h3 className="font-semibold text-slate-900 mb-4">{t('int_support_title')}</h3>
                         <div className="space-y-4">
                             <div className="flex items-start gap-3">
                                 <div className="p-2 bg-indigo-50 rounded-lg text-indigo-600 shrink-0">
                                     <Phone size={18} />
                                 </div>
                                 <div>
-                                    <p className="text-sm font-medium text-slate-900">Teknisk Support</p>
+                                    <p className="text-sm font-medium text-slate-900">{t('int_tech_support')}</p>
                                     <p className="text-sm text-slate-600">044-309 30 00</p>
                                     <p className="text-xs text-slate-500 mt-1">Vardagar 08:00-17:00</p>
                                     <p className="text-xs text-rose-600 mt-0.5">Jour: 070-123 45 67</p>
@@ -327,7 +327,7 @@ export const Internal: React.FC = () => {
                                     <Mail size={18} />
                                 </div>
                                 <div>
-                                    <p className="text-sm font-medium text-slate-900">E-post Support</p>
+                                    <p className="text-sm font-medium text-slate-900">{t('int_email_support')}</p>
                                     <a href="mailto:ike-support@skane.se" className="text-sm text-indigo-600 hover:text-indigo-700 hover:underline">
                                         ike-support@skane.se
                                     </a>
@@ -338,14 +338,14 @@ export const Internal: React.FC = () => {
                                 <p className="text-xs text-slate-500 mb-2">Systemstatus</p>
                                 <div className="flex items-center gap-2">
                                     <CheckCircle size={14} className="text-emerald-600" />
-                                    <span className="text-sm font-medium text-emerald-600">Alla system operativa</span>
+                                    <span className="text-sm font-medium text-emerald-600">{t('int_system_status')}</span>
                                 </div>
                             </div>
                         </div>
                     </Card>
 
                     <Card>
-                        <h3 className="font-semibold text-slate-900 mb-4">Utbildningar</h3>
+                        <h3 className="font-semibold text-slate-900 mb-4">{t('int_training_title')}</h3>
                         <div className="space-y-3">
                             {training.map((course, index) => (
                                 <div key={index} className="p-3 bg-slate-50 rounded-lg border border-slate-200">
@@ -362,29 +362,29 @@ export const Internal: React.FC = () => {
                                     <div className="flex items-center justify-between">
                                         <span className="text-xs font-medium text-indigo-600">{course.nextDate}</span>
                                         <Button variant="ghost" size="sm" className="h-7 text-xs">
-                                            Boka plats
+                                            {t('int_btn_book')}
                                         </Button>
                                     </div>
                                 </div>
                             ))}
                         </div>
                         <Button variant="outline" className="w-full mt-3" size="sm">
-                            <Calendar size={14} className="mr-2" /> Visa alla utbildningar
+                            <Calendar size={14} className="mr-2" /> {t('int_btn_all_training')}
                         </Button>
                     </Card>
 
                     <Card className="bg-gradient-to-br from-indigo-600 to-indigo-700 text-white border-indigo-700">
-                        <h3 className="font-semibold text-lg mb-2">Behöver du extra hjälp?</h3>
+                        <h3 className="font-semibold text-lg mb-2">{t('int_help_title')}</h3>
                         <p className="text-indigo-100 text-sm mb-4">
-                            Boka en personlig genomgång med vårt supportteam.
+                            {t('int_help_desc')}
                         </p>
                         <Button className="w-full bg-white text-indigo-600 hover:bg-indigo-50">
-                            Boka personlig genomgång
+                            {t('int_btn_book_personal')}
                         </Button>
                     </Card>
 
                     <Card>
-                        <h3 className="font-semibold text-slate-900 mb-3 text-sm">Externa Länkar</h3>
+                        <h3 className="font-semibold text-slate-900 mb-3 text-sm">{t('int_links_title')}</h3>
                         <div className="space-y-1">
                             <a href="https://www.skolverket.se" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 text-slate-600 hover:text-indigo-600 transition-colors text-sm group">
                                 Skolverket

@@ -353,8 +353,8 @@ export const Organization: React.FC = () => {
   const handleSave = () => {
     // In a real app, we would update the backend here.
     // For now, we'll just show a success message.
-    toast.success(isEditModalOpen ? "Ändringar sparade" : "Enhet skapad",
-      isEditModalOpen ? `${nodeForm.title} har uppdaterats.` : `${nodeForm.title || 'Ny enhet'} har lagts till.`);
+    toast.success(isEditModalOpen ? t('org_toast_saved_title') : t('org_toast_created_title'),
+      isEditModalOpen ? `${nodeForm.title} ${t('org_toast_saved_desc')}` : `${nodeForm.title || 'Ny enhet'} ${t('org_toast_created_desc')}`);
     setIsEditModalOpen(false);
     setIsAddModalOpen(false);
   };
@@ -481,15 +481,15 @@ export const Organization: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <Card>
                 <h3 className="text-3xl font-bold text-slate-900 mb-1">{selectedData.stats?.municipalities}</h3>
-                <p className="text-slate-500 text-sm">Kommuner</p>
+                <p className="text-slate-500 text-sm">{t('org_municipalities')}</p>
               </Card>
               <Card>
                 <h3 className="text-3xl font-bold text-slate-900 mb-1">{selectedData.stats?.privateProviders}</h3>
-                <p className="text-slate-500 text-sm">Fristående huvudmän</p>
+                <p className="text-slate-500 text-sm">{t('org_private_providers')}</p>
               </Card>
               <Card>
                 <h3 className="text-3xl font-bold text-slate-900 mb-1">{selectedData.stats?.totalUnits}</h3>
-                <p className="text-slate-500 text-sm">Skolenheter totalt</p>
+                <p className="text-slate-500 text-sm">{t('org_total_units')}</p>
               </Card>
             </div>
           </div>
@@ -504,9 +504,9 @@ export const Organization: React.FC = () => {
           <div className="p-8 pb-0 shrink-0">
             {/* Breadcrumbs */}
             <div className="flex items-center text-xs text-slate-500 mb-4">
-              <span>Organisation</span>
+              <span>{t('org_title')}</span>
               <ChevronRight size={12} className="mx-1" />
-              <span>Huvudmän</span>
+              <span>{t('nav_payers')}</span>
               <ChevronRight size={12} className="mx-1" />
               <span className="text-slate-900 font-medium">{selectedData.title}</span>
             </div>
@@ -522,7 +522,7 @@ export const Organization: React.FC = () => {
                   size="sm"
                   onClick={handleEditClick}
                   className="rounded-full w-8 h-8 p-0"
-                  title="Redigera organisation"
+                  title={t('org_btn_edit')}
                 >
                   <Edit2 size={16} />
                 </Button>
@@ -551,29 +551,29 @@ export const Organization: React.FC = () => {
             {activeTab === 'overview' && (
               <div className="space-y-10 max-w-5xl">
                 {/* Org Info */}
-                <Card title="Organisations information">
+                <Card title={t('org_info_header')}>
                   <div className="">
                     <div className="grid grid-cols-1 md:grid-cols-4 py-3 gap-4">
-                      <div className="text-sm text-slate-500">Adress:</div>
+                      <div className="text-sm text-slate-500">{t('org_address')}</div>
                       <div className="text-sm text-slate-900 md:col-span-3 font-medium">{selectedData.address}</div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-4 py-3 gap-4 border-t border-slate-50">
-                      <div className="text-sm text-slate-500">Organisation id:</div>
+                      <div className="text-sm text-slate-500">{t('org_id')}</div>
                       <div className="text-sm text-slate-900 md:col-span-3 font-medium">{selectedData.orgId}</div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-4 py-3 gap-4 border-t border-slate-50">
-                      <div className="text-sm text-slate-500">Kommunkod:</div>
+                      <div className="text-sm text-slate-500">{t('org_code')}</div>
                       <div className="text-sm text-slate-900 md:col-span-3 font-medium">{selectedData.code || '-'}</div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-4 py-3 gap-4 border-t border-slate-50">
-                      <div className="text-sm text-slate-500">Koncern:</div>
+                      <div className="text-sm text-slate-500">{t('org_group')}</div>
                       <div className="text-sm text-slate-900 md:col-span-3 font-medium">{selectedData.group || '-'}</div>
                     </div>
                   </div>
                 </Card>
 
                 {/* Contacts */}
-                <Card title="Contacts" noPadding>
+                <Card title={t('org_contacts')} noPadding>
                   <div className="divide-y divide-slate-100">
                     {selectedData.contacts.map((c, i) => (
                       <div key={i} className="flex items-center justify-between p-4">
@@ -582,7 +582,7 @@ export const Organization: React.FC = () => {
                           <span className="text-sm font-medium text-slate-900">{c.name}</span>
                         </div>
                         <div className="flex items-center gap-12 w-2/3 justify-end">
-                          <span className="text-sm text-slate-500">Phone: <span className="text-slate-900 ml-2 font-medium">{c.phone}</span></span>
+                          <span className="text-sm text-slate-500">{t('org_phone')} <span className="text-slate-900 ml-2 font-medium">{c.phone}</span></span>
                           <div className="flex gap-2">
                             <Button variant="ghost" size="sm" className="p-2 h-auto"><MessageSquare size={16} /></Button>
                             <Button variant="ghost" size="sm" className="p-2 h-auto"><MoreVertical size={16} /></Button>
@@ -594,18 +594,18 @@ export const Organization: React.FC = () => {
                 </Card>
 
                 {/* Invoice & Price Lists */}
-                <Card title="Fakturauppgifter">
+                <Card title={t('org_invoice_header')}>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div>
-                      <dt className="text-xs text-slate-500 uppercase tracking-wide mb-1">Bankgiro</dt>
+                      <dt className="text-xs text-slate-500 uppercase tracking-wide mb-1">{t('org_bankgiro')}</dt>
                       <dd className="text-sm font-medium text-slate-900">{selectedData.invoice?.bankgiro}</dd>
                     </div>
                     <div>
-                      <dt className="text-xs text-slate-500 uppercase tracking-wide mb-1">Plusgiro</dt>
+                      <dt className="text-xs text-slate-500 uppercase tracking-wide mb-1">{t('org_plusgiro')}</dt>
                       <dd className="text-sm font-medium text-slate-900">{selectedData.invoice?.plusgiro}</dd>
                     </div>
                     <div>
-                      <dt className="text-xs text-slate-500 uppercase tracking-wide mb-1">Your ref.</dt>
+                      <dt className="text-xs text-slate-500 uppercase tracking-wide mb-1">{t('org_ref')}</dt>
                       <dd className="text-sm font-medium text-slate-900">{selectedData.invoice?.ref}</dd>
                     </div>
                   </div>
@@ -613,19 +613,19 @@ export const Organization: React.FC = () => {
 
                 <section>
                   <div className="flex justify-between items-center mb-3">
-                    <h3 className="text-sm font-semibold text-slate-500">Prislistor</h3>
+                    <h3 className="text-sm font-semibold text-slate-500">{t('org_prices_header')}</h3>
                     <button className="flex items-center gap-2 px-3 py-1.5 border border-slate-300 bg-white rounded-md text-xs font-medium hover:bg-slate-50 shadow-sm text-slate-700">
-                      <Upload size={12} /> Ladda upp prislista
+                      <Upload size={12} /> {t('org_upload_price')}
                     </button>
                   </div>
                   <div className="border border-slate-200 rounded-lg overflow-hidden">
                     <table className="w-full text-left text-sm">
                       <thead className="bg-slate-50 text-slate-500 border-b border-slate-200">
                         <tr>
-                          <th className="px-4 py-3 font-medium text-xs">Namn</th>
-                          <th className="px-4 py-3 font-medium text-xs">Läsår</th>
-                          <th className="px-4 py-3 font-medium text-xs">Uppladdad</th>
-                          <th className="px-4 py-3 font-medium text-xs">Status</th>
+                          <th className="px-4 py-3 font-medium text-xs">{t('org_col_name')}</th>
+                          <th className="px-4 py-3 font-medium text-xs">{t('org_col_year')}</th>
+                          <th className="px-4 py-3 font-medium text-xs">{t('org_col_uploaded')}</th>
+                          <th className="px-4 py-3 font-medium text-xs">{t('org_col_status')}</th>
                           <th className="px-4 py-3 w-16"></th>
                         </tr>
                       </thead>
@@ -634,7 +634,7 @@ export const Organization: React.FC = () => {
                           <td className="px-4 py-3 font-medium flex items-center gap-2 text-slate-900"><FileText size={14} className="text-slate-400" /> Prislista 2024/2025</td>
                           <td className="px-4 py-3 text-slate-600">2024/2025</td>
                           <td className="px-4 py-3 text-slate-500 text-xs flex items-center gap-1"><Calendar size={10} /> 2024-08-15</td>
-                          <td className="px-4 py-3"><Badge variant="success">Aktiv</Badge></td>
+                          <td className="px-4 py-3"><Badge variant="success">{t('status_active')}</Badge></td>
                           <td className="px-4 py-3 text-right flex justify-end gap-2">
                             <Button variant="ghost" size="sm" className="p-0 h-auto text-slate-400 hover:text-slate-600"><Download size={16} /></Button>
                             <Button variant="ghost" size="sm" className="p-0 h-auto text-slate-400 hover:text-red-600"><Trash2 size={14} /></Button>
@@ -662,21 +662,21 @@ export const Organization: React.FC = () => {
                 <div className="flex items-center gap-3 mb-6">
                   <div className="relative flex-1 max-w-md">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 h-4 w-4" />
-                    <input type="text" placeholder="Sök skola..." className="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-slate-200 transition-all shadow-sm" />
+                    <input type="text" placeholder={t('org_search_school')} className="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-slate-200 transition-all shadow-sm" />
                   </div>
                   <button className="flex items-center gap-2 px-3 py-2 border border-slate-300 bg-white rounded-md text-sm text-slate-700 hover:bg-slate-50 font-medium shadow-sm">
-                    <Filter size={14} /> Filter
+                    <Filter size={14} /> {t('org_btn_filter')}
                   </button>
                 </div>
 
                 <div className="flex justify-between items-center mb-4">
-                  <p className="text-sm text-slate-500">{currentSchoolUnits.length} skolenheter</p>
+                  <p className="text-sm text-slate-500">{currentSchoolUnits.length} {t('org_count_units_suffix')}</p>
                   <Button
                     onClick={handleAddClick}
                     leftIcon={<Plus size={16} />}
                     className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition-colors"
                   >
-                    Lägg till enhet
+                    {t('org_btn_add_unit')}
                   </Button>
                 </div>
 
@@ -685,12 +685,12 @@ export const Organization: React.FC = () => {
                     <thead className="bg-slate-50/50 text-slate-500 border-b border-slate-200">
                       <tr>
                         <th className="py-3 px-6 w-12"><input type="checkbox" className="rounded border-slate-300" /></th>
-                        <th className="py-3 px-6 font-medium">Skola</th>
-                        <th className="py-3 px-6 font-medium">Elever</th>
-                        <th className="py-3 px-6 font-medium">Org.nr</th>
-                        <th className="py-3 px-6 font-medium">Adress</th>
-                        <th className="py-3 px-6 font-medium">Kontakt</th>
-                        <th className="py-3 px-6 font-medium">Typ</th>
+                        <th className="py-3 px-6 font-medium">{t('org_table_school')}</th>
+                        <th className="py-3 px-6 font-medium">{t('org_table_students')}</th>
+                        <th className="py-3 px-6 font-medium">{t('org_table_org_nr')}</th>
+                        <th className="py-3 px-6 font-medium">{t('org_address')}</th>
+                        <th className="py-3 px-6 font-medium">{t('org_table_contact')}</th>
+                        <th className="py-3 px-6 font-medium">{t('org_table_type')}</th>
                         <th className="py-3 px-6 w-12"></th>
                       </tr>
                     </thead>
@@ -726,9 +726,9 @@ export const Organization: React.FC = () => {
           <div className="p-8 pb-0">
             {/* Breadcrumbs */}
             <div className="flex items-center text-xs text-slate-500 mb-6">
-              <span>Organisation</span>
+              <span>{t('org_title')}</span>
               <ChevronRight size={12} className="mx-1" />
-              <span>Huvudmän</span>
+              <span>{t('nav_payers')}</span>
               <ChevronRight size={12} className="mx-1" />
               <span className="hover:underline cursor-pointer" onClick={() => setSelectedNodeId(selectedData.id.split('_')[0])}>
                 {selectedData.group}
@@ -744,7 +744,7 @@ export const Organization: React.FC = () => {
             {/* Key Stats / Header Info */}
             <div className="flex flex-col gap-1 mb-8">
               <div className="flex items-center gap-2">
-                <span className="text-sm text-slate-500 font-medium w-24">Antal elever:</span>
+                <span className="text-sm text-slate-500 font-medium w-24">{t('org_label_students_count')}:</span>
                 <span className="text-lg font-semibold text-slate-900 flex items-center gap-2">
                   {selectedData.studentCount}
                   <ExternalLink size={14} className="text-slate-400 cursor-pointer hover:text-blue-600" />
@@ -757,31 +757,31 @@ export const Organization: React.FC = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-6">
                 <div className="space-y-4">
                   <div className="flex items-baseline">
-                    <span className="text-sm text-slate-500 w-32 shrink-0">Adress:</span>
+                    <span className="text-sm text-slate-500 w-32 shrink-0">{t('org_address')}</span>
                     <span className="text-sm text-slate-900 font-medium">{selectedData.address}</span>
                   </div>
                   <div className="flex items-baseline">
-                    <span className="text-sm text-slate-500 w-32 shrink-0">Huvudman:</span>
-                    <span className="text-sm text-slate-900 font-medium">{selectedData.group} (kommun)</span>
+                    <span className="text-sm text-slate-500 w-32 shrink-0">{t('org_label_provider')}:</span>
+                    <span className="text-sm text-slate-900 font-medium">{selectedData.group}</span>
                   </div>
                   <div className="flex items-baseline">
-                    <span className="text-sm text-slate-500 w-32 shrink-0">Kommunkod:</span>
+                    <span className="text-sm text-slate-500 w-32 shrink-0">{t('org_code')}</span>
                     <span className="text-sm text-slate-900 font-medium">{selectedData.code}</span>
                   </div>
                 </div>
                 <div className="space-y-4">
                   <div className="flex items-baseline justify-between">
                     <div className="flex items-baseline">
-                      <span className="text-sm text-slate-500 w-32 shrink-0">Skolenhetskod:</span>
+                      <span className="text-sm text-slate-500 w-32 shrink-0">{t('org_label_school_unit_code')}:</span>
                       <span className="text-sm text-slate-900 font-medium">{selectedData.orgId ? selectedData.orgId.replace('-', '') : ''}</span>
                     </div>
                   </div>
                   <div className="flex items-baseline">
-                    <span className="text-sm text-slate-500 w-32 shrink-0">Startdatum:</span>
+                    <span className="text-sm text-slate-500 w-32 shrink-0">{t('org_label_start_date')}:</span>
                     <span className="text-sm text-slate-900 font-medium">{selectedData.startDate}</span>
                   </div>
                   <div className="flex items-baseline">
-                    <span className="text-sm text-slate-500 w-32 shrink-0">Slutdatum:</span>
+                    <span className="text-sm text-slate-500 w-32 shrink-0">{t('org_label_end_date')}:</span>
                     <span className="text-sm text-slate-900 font-medium">{selectedData.endDate}</span>
                   </div>
 
@@ -792,7 +792,7 @@ export const Organization: React.FC = () => {
                       leftIcon={<Edit2 size={14} />}
                       className="text-slate-700 hover:text-slate-900"
                     >
-                      Uppdatera organisationsinfo
+                      {t('org_btn_update')}
                     </Button>
                   </div>
                 </div>
