@@ -135,26 +135,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activePage, onNavigate, isOpen
         <div className="h-14 flex items-center px-4 border-b border-slate-100 bg-white shrink-0">
           <div className="flex items-center gap-2.5 overflow-hidden">
             <div className="shrink-0 flex items-center justify-center">
-              {/* IST Logo Vector */}
-              <svg width="42" height="24" viewBox="0 0 60 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className="text-slate-900">
-                <defs>
-                  <mask id="logo-mask">
-                    <rect width="100%" height="100%" fill="white" />
-                    <rect y="4" width="100%" height="1.5" fill="black" />
-                    <rect y="9" width="100%" height="1.5" fill="black" />
-                    <rect y="14" width="100%" height="1.5" fill="black" />
-                    <rect y="19" width="100%" height="1.5" fill="black" />
-                  </mask>
-                </defs>
-                <g mask="url(#logo-mask)">
-                  {/* I */}
-                  <rect x="0" y="0" width="10" height="24" />
-                  {/* S */}
-                  <path d="M15 0H35V6H21V9H35V24H15V18H29V15H15V0Z" />
-                  {/* T */}
-                  <path d="M40 0H60V6H53V24H47V6H40V0Z" />
-                </g>
-              </svg>
+              <img src="/Logo.png" alt="IST Logo" className="h-7 w-auto" />
             </div>
             <span className={`font-semibold text-slate-900 text-sm whitespace-nowrap tracking-tight transition-opacity duration-200 ${isOpen ? 'opacity-100' : 'opacity-0 lg:hidden'}`}>
               IST Regional
